@@ -1,8 +1,11 @@
-<div class="root-container">
-	<div class="list-panel">
-		<app-tag-list></app-tag-list>
-	</div>
-	<div class="main-panel">
-		<router-outlet></router-outlet>
-	</div>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="mat-app-background basic-container">
+	<mat-sidenav-container class="root-container">
+		<mat-sidenav mode="side" opened>
+			<app-tag-list></app-tag-list>
+		</mat-sidenav>
+		<mat-sidenav-content>
+			<router-outlet></router-outlet>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
 </div>

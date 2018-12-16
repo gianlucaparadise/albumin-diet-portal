@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule, MatSidenavModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,8 +18,9 @@ import { AlbumListComponent } from './album-list/album-list.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
-    MatChipsModule
+    MatSidenavModule,
+    MatChipsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
