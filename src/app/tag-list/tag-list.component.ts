@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlbuminService } from '../albumin.service';
+import { Tag } from '../models/Tag';
 
 @Component({
   selector: 'app-tag-list',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TagListComponent implements OnInit {
 
-  constructor() { }
+  tags: Tag[] = [];
+
+  constructor(private albuminService: AlbuminService) { }
 
   ngOnInit() {
+    this.getTags();
   }
 
+  getTags(): void {
+    this.albuminService.getTags()
+      .subscribe(tags => this.tags = tags);
+  }
 }
