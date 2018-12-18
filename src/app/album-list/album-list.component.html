@@ -1,3 +1,13 @@
-<p>
-  album-list works!
-</p>
+<div class="album-cards-container">
+  <mat-card *ngFor="let album of albums" (click)="goToDetail(album)" class="album-card">
+    <img mat-card-image src="{{album.images[0].url}}" alt="{{album.name}}" (click)="playAlbum(album, $event)">
+    <mat-card-header>
+      <mat-card-subtitle>{{album.artists[0].name}}</mat-card-subtitle>
+      <mat-card-subtitle>{{album.release_date}}</mat-card-subtitle>
+      <mat-card-title>{{album.name}}</mat-card-title>
+    </mat-card-header>
+    <!-- <mat-card-actions>
+      <button mat-button>Play</button>
+    </mat-card-actions> -->
+  </mat-card>
+</div>

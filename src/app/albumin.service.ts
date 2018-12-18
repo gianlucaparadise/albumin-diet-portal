@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Tag } from './models/Tag';
+import { Album } from './models/Album';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +69,9 @@ export class AlbuminService {
 
   getTags(): Observable<Tag[]> {
     return of(this.tags);
+  }
+
+  getAlbums() {
+    return of(Album.data);
   }
 }

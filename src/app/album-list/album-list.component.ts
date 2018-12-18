@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlbuminService } from '../albumin.service';
 
 @Component({
   selector: 'app-album-list',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlbumListComponent implements OnInit {
 
-  constructor() { }
+  albums = [];
+
+  constructor(private albuminService: AlbuminService) { }
 
   ngOnInit() {
+    this.getAlbums();
   }
 
+  getAlbums() {
+    this.albuminService.getAlbums()
+      .subscribe(data => {
+        this.albums = data.albums.items;
+        // data.albums.items[0].
+      });
+  }
+
+  goToDetail(album) {
+    console.log(`detail: ${album.id}`);
+  }
+
+  playAlbum(album, event: MouseEvent) {
+    event.stopPropagation();
+    console.log(`play: ${album.external_urls.spotify}`);
+  }
 }
