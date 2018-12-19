@@ -1,6 +1,6 @@
 <div class="tag-list-container">
-  <mat-chip-list class="mat-chip-list-stacked" aria-orientation="vertical">
-    <mat-chip *ngFor="let tag of tags">
+  <mat-chip-list #tagList class="mat-chip-list-stacked" aria-orientation="vertical" [multiple]="true" (change)="onChange()">
+    <mat-chip #chip="matChip" *ngFor="let tag of tags" (click)="onTagClick(tag, chip)" [selected]="tag.selected">
       {{tag.name}}
     </mat-chip>
   </mat-chip-list>
