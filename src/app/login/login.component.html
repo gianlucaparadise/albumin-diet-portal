@@ -1,0 +1,2 @@
+<a *ngIf="!auth.isLoggedIn" href="http://localhost:3000/auth/spotify?callback=http://localhost:4200/home">Spotify Login</a>
+<label *ngIf="auth.isLoggedIn">You are logged in</label>
