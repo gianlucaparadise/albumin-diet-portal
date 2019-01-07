@@ -1,15 +1,18 @@
 <div class="album-cards-container">
-  <mat-card *ngFor="let album of albums" (click)="goToDetail(album)" class="album-card">
-    <div class="album-image-wrapper" (click)="playAlbum(album, $event)">
-      <img mat-card-image src="{{album.images[0].url}}" alt="{{album.name}}" class="album-image">
-      <div class="play-overlay">
-        <mat-icon class="play-icon" style="color: white;height: 70px;width: 70px;font-size: 70px;">play_circle_outline</mat-icon>
+  <h1>Albums</h1>
+  <div class="album-card-list">
+    <mat-card *ngFor="let album of albums" (click)="goToDetail(album)" class="album-card">
+      <div class="album-image-wrapper" (click)="playAlbum(album, $event)">
+        <img mat-card-image src="{{album.images[0].url}}" alt="{{album.name}}" class="album-image">
+        <div class="play-overlay">
+          <mat-icon class="play-icon" style="color: white;height: 70px;width: 70px;font-size: 70px;">play_circle_outline</mat-icon>
+        </div>
       </div>
-    </div>
-    <mat-card-header>
-      <mat-card-subtitle>{{album.artists[0].name}}</mat-card-subtitle>
-      <mat-card-subtitle>{{album.release_date}}</mat-card-subtitle>
-      <mat-card-title>{{album.name}}</mat-card-title>
-    </mat-card-header>
-  </mat-card>
+      <mat-card-header>
+        <mat-card-subtitle>{{album.artists[0].name}}</mat-card-subtitle>
+        <mat-card-subtitle>{{album.release_date}}</mat-card-subtitle>
+        <mat-card-title>{{album.name}}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </div>
 </div>
