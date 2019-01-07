@@ -20,4 +20,16 @@ export class AuthService {
   get token() {
     return this.cookie.getCookie('x-auth-token');
   }
+
+  /**
+   * This performs a redirect
+   */
+  login() {
+    document.location.href = 'http://localhost:3000/auth/spotify?callback=http://localhost:4200/home';
+  }
+
+  logout() {
+    this.cookie.deleteCookie('x-auth-token');
+    this.checkIsLoggedIn();
+  }
 }

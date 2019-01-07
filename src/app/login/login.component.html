@@ -1,2 +1,9 @@
-<a *ngIf="!auth.isLoggedIn" href="http://localhost:3000/auth/spotify?callback=http://localhost:4200/home">Spotify Login</a>
-<label *ngIf="auth.isLoggedIn">You are logged in</label>
+<div class="login-container">
+  <div *ngIf="!auth.isLoggedIn">
+    <button mat-raised-button (click)="login()">Spotify
+      Login</button>
+  </div>
+  <div *ngIf="auth.isLoggedIn">
+    <button mat-raised-button (click)="logout()">Logout</button>
+  </div>
+</div>
