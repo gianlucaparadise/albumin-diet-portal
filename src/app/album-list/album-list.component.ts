@@ -18,18 +18,18 @@ export class AlbumListComponent implements OnInit {
 
   getAlbums() {
     this.albuminService.getAlbums()
-      .subscribe(data => {
-        this.albums = data.albums.items;
-        // data.albums.items[0].
+      .subscribe(response => {
+        console.log(response.data);
+        this.albums = response.data;
       });
   }
 
   goToDetail(album) {
-    console.log(`detail: ${album.id}`);
+    console.log(`detail: ${album.album.album.id}`);
   }
 
   playAlbum(album, event: MouseEvent) {
     event.stopPropagation();
-    console.log(`play: ${album.external_urls.spotify}`);
+    console.log(`play: ${album.album.album.external_urls.spotify}`);
   }
 }
