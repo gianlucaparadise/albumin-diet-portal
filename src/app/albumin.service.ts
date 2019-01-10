@@ -41,11 +41,15 @@ export class AlbuminService {
   //   return of(Album.data);
   // }
 
-  getAlbums(): Observable<any> {
+  getAlbums(tags: string[] = null): Observable<any> {
     // todo: use a url provider
     // todo: share models between backend and frontend
 
-    const url = `http://localhost:3000/api/me/album`;
+    const params = new URLSearchParams();
+    if (tags) {
+      params.set('tags', JSON.stringify(tags));
+    }
+    const url = `http://localhost:3000/api/me/album?${params}`;
 
     const token = this.auth.token;
     httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);

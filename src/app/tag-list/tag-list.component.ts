@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { AlbuminService } from '../albumin.service';
 import { Tag } from '../models/Tag';
 import { MatChip, MatChipList } from '@angular/material';
@@ -13,7 +15,10 @@ export class TagListComponent implements OnInit {
   @ViewChild('tagList') tagList: MatChipList;
   tags: Tag[] = [];
 
-  constructor(private albuminService: AlbuminService) { }
+  constructor(
+    private albuminService: AlbuminService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getTags();
@@ -44,5 +49,7 @@ export class TagListComponent implements OnInit {
     // }, <string[]>[]);
 
     console.log(selectedTagNames);
+    const params = { tags: selectedTagNames };
+    this.router.navigate(['/albums'], { queryParams: params });
   }
 }

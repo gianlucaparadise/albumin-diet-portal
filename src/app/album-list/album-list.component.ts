@@ -1,25 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AlbuminService } from '../albumin.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-album-list',
   templateUrl: './album-list.component.html',
   styleUrls: ['./album-list.component.scss']
 })
-export class AlbumListComponent implements OnInit {
+export class AlbumListComponent implements OnInit, OnDestroy {
 
   albums = [];
+  queryParamsSub: Subscription;
 
-  constructor(private albuminService: AlbuminService) { }
+  constructor(
+    private albuminService: AlbuminService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.getAlbums();
+    this.queryParamsSub = this.route
+      .queryParams
+      .subscribe(params => {
+        const tags = params['tags'];
+        this.getAlbums(tags);
+      });
   }
 
-  getAlbums() {
-    this.albuminService.getAlbums()
+  ngOnDestroy() {
+    this.queryParamsSub.unsubscribe();
+  }
+
+  getAlbums(tags: any) {
+    this.albuminService.getAlbums(tags)
       .subscribe(response => {
-        console.log(response.data);
         this.albums = response.data;
       });
   }
