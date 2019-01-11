@@ -10,7 +10,7 @@
       </div>
       <mat-card-header>
         <mat-card-subtitle>{{album.album.album.artists[0].name}}</mat-card-subtitle>
-        <mat-card-subtitle>{{album.album.album.release_date}}</mat-card-subtitle>
+        <mat-card-subtitle>{{album.album.album.release_date | date:"yyyy"}}</mat-card-subtitle>
         <mat-card-title>{{album.album.album.name}}</mat-card-title>
       </mat-card-header>
     </mat-card>
