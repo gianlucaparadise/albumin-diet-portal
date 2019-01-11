@@ -25,7 +25,7 @@ export class AuthService {
    * This performs a redirect
    */
   login() {
-    document.location.href = 'http://localhost:3000/auth/spotify?callback=http://localhost:4200/home';
+    document.location.href = 'http://localhost:3000/auth/spotify?callback=http://localhost:4200/';
   }
 
   logout() {
