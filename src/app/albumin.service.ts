@@ -55,4 +55,12 @@ export class AlbuminService {
     httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(url, httpOptions);
   }
+
+  getAlbum(spotifyAlbumId: string): Observable<any> {
+    const url = `http://localhost:3000/api/me/album/${spotifyAlbumId}`;
+
+    const token = this.auth.token;
+    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
+    return this.http.get(url, httpOptions);
+  }
 }
