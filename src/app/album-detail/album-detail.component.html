@@ -1,0 +1,18 @@
+<div class="album-detail-container" *ngIf="album">
+  <div class="album-info-container">
+    <img src="{{album.images[0].url}}" alt="{{album.name}}" class="album-image">
+    <h1>{{album.name}}</h1>
+    <h3>{{album.artists[0].name}}</h3>
+    <h3>{{album.release_date | date:"yyyy"}}</h3>
+    <h3>{{album.total_tracks}} tracks</h3>
+  </div>
+  <div class="album-tags-container">
+    <h1>My Tags</h1>
+    <mat-chip-list>
+      <mat-chip *ngFor="let tag of tags" [removable]="true">
+        {{tag.name}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+</div>

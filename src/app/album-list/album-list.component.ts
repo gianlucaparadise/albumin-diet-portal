@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlbuminService } from '../albumin.service';
 import { Subscription } from 'rxjs';
 
@@ -15,7 +15,8 @@ export class AlbumListComponent implements OnInit, OnDestroy {
 
   constructor(
     private albuminService: AlbuminService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -39,7 +40,8 @@ export class AlbumListComponent implements OnInit, OnDestroy {
   }
 
   goToDetail(album) {
-    console.log(`detail: ${album.album.album.id}`);
+    const albumId = album.album.album.id;
+    this.router.navigate([`/album`, albumId]);
   }
 
   playAlbum(album, event: MouseEvent) {

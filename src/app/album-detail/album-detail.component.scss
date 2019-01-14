@@ -1,0 +1,32 @@
+.album-detail-container {
+  padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.album-info-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 30%;
+  min-width: 250px;
+}
+
+.album-tags-container {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 10px;
+  min-width: 250px;
+}
+
+.album-tags-cloud {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.album-image {
+  width: 70%;
+}

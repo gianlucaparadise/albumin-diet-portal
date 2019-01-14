@@ -11,13 +11,15 @@ import { AppComponent } from './app.component';
 import { TagListComponent } from './tag-list/tag-list.component';
 import { AlbumListComponent } from './album-list/album-list.component';
 import { LoginComponent } from './login/login.component';
+import { AlbumDetailComponent } from './album-detail/album-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TagListComponent,
     AlbumListComponent,
-    LoginComponent
+    LoginComponent,
+    AlbumDetailComponent
   ],
   imports: [
     BrowserModule,
