@@ -8,11 +8,15 @@
   </div>
   <div class="album-tags-container">
     <h1>My Tags</h1>
-    <mat-chip-list>
-      <mat-chip *ngFor="let tag of tags" [removable]="true">
-        {{tag.name}}
-        <mat-icon matChipRemove>cancel</mat-icon>
-      </mat-chip>
-    </mat-chip-list>
+    <mat-form-field>
+      <mat-chip-list #tagList>
+        <mat-chip *ngFor="let tag of tags" [removable]="true">
+          {{tag.name}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+    </mat-form-field>
   </div>
 </div>

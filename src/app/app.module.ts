@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // todo: refactor code to use an separated module that imports all the material modules
-import { MatChipsModule, MatSidenavModule, MatCardModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatChipsModule, MatSidenavModule, MatCardModule, MatIconModule, MatButtonModule, MatFormFieldModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +30,7 @@ import { AlbumDetailComponent } from './album-detail/album-detail.component';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
+    MatFormFieldModule,
     AppRoutingModule
   ],
   providers: [],

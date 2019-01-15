@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ActivatedRoute } from '@angular/router';
+import { MatChipInputEvent } from '@angular/material';
 import { AlbuminService } from '../albumin.service';
 
 @Component({
@@ -9,6 +11,9 @@ import { AlbuminService } from '../albumin.service';
 })
 export class AlbumDetailComponent implements OnInit {
 
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  albumId: string;
   album: any;
   tags = [];
 
@@ -19,10 +24,10 @@ export class AlbumDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const albumId = params['albumId'];
-      console.log(`albumId ${albumId}`);
+      this.albumId = params['albumId'];
+      console.log(`albumId ${this.albumId}`);
 
-      this.getAlbum(albumId);
+      this.getAlbum(this.albumId);
     });
   }
 
@@ -33,5 +38,21 @@ export class AlbumDetailComponent implements OnInit {
         this.album = response.data.album;
         this.tags = response.data.tags;
       });
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.tags.push({ name: value.trim() });
+      this.albuminService.addTagToAlbum(value, this.albumId).subscribe(response => console.log(`Insertion completed: ${response}`));
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
   }
 }

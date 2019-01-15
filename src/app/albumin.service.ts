@@ -63,4 +63,14 @@ export class AlbuminService {
     httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(url, httpOptions);
   }
+
+  addTagToAlbum(tag: string, albumSpotifyId: string): Observable<any> {
+    const url = `http://localhost:3000/api/me/tag-on-album`;
+
+    const token = this.auth.token;
+    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
+
+    const requestBody = { tag: { name: tag }, album: { spotifyId: albumSpotifyId } };
+    return this.http.post(url, requestBody, httpOptions);
+  }
 }
