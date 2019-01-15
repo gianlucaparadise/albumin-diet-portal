@@ -73,4 +73,15 @@ export class AlbuminService {
     const requestBody = { tag: { name: tag }, album: { spotifyId: albumSpotifyId } };
     return this.http.post(url, requestBody, httpOptions);
   }
+
+  deleteTagFromAlbum(tag: any, albumSpotifyId: string): Observable<any> {
+    const url = `http://localhost:3000/api/me/tag-on-album`;
+
+    const token = this.auth.token;
+    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
+
+    const requestBody = { tag: { name: tag }, album: { spotifyId: albumSpotifyId } };
+    httpOptions['body'] = requestBody;
+    return this.http.delete(url, httpOptions);
+  }
 }

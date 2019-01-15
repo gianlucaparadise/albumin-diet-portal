@@ -55,4 +55,13 @@ export class AlbumDetailComponent implements OnInit {
       input.value = '';
     }
   }
+
+  remove(tag: any): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+      this.albuminService.deleteTagFromAlbum(tag.name, this.albumId).subscribe(response => console.log(`Delete completed: ${response}`));
+    }
+  }
 }
