@@ -26,7 +26,7 @@ export class TagListComponent implements OnInit {
 
   getTags(): void {
     this.albuminService.getTags()
-      .subscribe(response => this.tags = response.data);
+      .subscribe(allTags => this.tags = allTags);
   }
 
   onTagClick(tag: Tag, chip: MatChip): void {

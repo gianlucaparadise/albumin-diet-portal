@@ -40,14 +40,14 @@ export class AlbumDetailComponent implements OnInit {
       });
   }
 
-  add(event: MatChipInputEvent): void {
+  add(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
 
     // Add our fruit
     if ((value || '').trim()) {
       this.tags.push({ name: value.trim() });
-      this.albuminService.addTagToAlbum(value, this.albumId).subscribe(response => console.log(`Insertion completed: ${response}`));
+      this.addTag(value);
     }
 
     // Reset the input value
@@ -56,12 +56,24 @@ export class AlbumDetailComponent implements OnInit {
     }
   }
 
-  remove(tag: any): void {
+  async addTag(value: string) {
+    const response = await this.albuminService.addTagToAlbum(value, this.albumId);
+    console.log(`Insertion completed:`);
+    console.log(response);
+  }
+
+  async remove(tag: any) {
     const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
       this.tags.splice(index, 1);
-      this.albuminService.deleteTagFromAlbum(tag.name, this.albumId).subscribe(response => console.log(`Delete completed: ${response}`));
+      this.removeTag(tag);
     }
+  }
+
+  async removeTag(tag: any) {
+    const response = await this.albuminService.deleteTagFromAlbum(tag.name, this.albumId);
+    console.log(`Delete completed:`);
+    console.log(response);
   }
 }
