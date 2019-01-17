@@ -1,11 +1,11 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div class="mat-app-background basic-container">
+<div class="mat-app-background">
   <mat-sidenav-container class="root-container">
     <mat-sidenav mode="side" opened>
-      <app-login></app-login>
       <app-tag-list></app-tag-list>
     </mat-sidenav>
     <mat-sidenav-content>
+      <app-toolbar></app-toolbar>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

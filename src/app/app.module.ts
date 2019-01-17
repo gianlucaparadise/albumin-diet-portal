@@ -4,7 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // todo: refactor code to use an separated module that imports all the material modules
-import { MatChipsModule, MatSidenavModule, MatCardModule, MatIconModule, MatButtonModule, MatFormFieldModule } from '@angular/material';
+import {
+  MatChipsModule, MatSidenavModule, MatCardModule, MatIconModule, MatButtonModule,
+  MatFormFieldModule, MatToolbarModule
+} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +15,7 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { AlbumListComponent } from './album-list/album-list.component';
 import { LoginComponent } from './login/login.component';
 import { AlbumDetailComponent } from './album-detail/album-detail.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,8 @@ import { AlbumDetailComponent } from './album-detail/album-detail.component';
     TagListComponent,
     AlbumListComponent,
     LoginComponent,
-    AlbumDetailComponent
+    AlbumDetailComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +36,7 @@ import { AlbumDetailComponent } from './album-detail/album-detail.component';
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatToolbarModule,
     AppRoutingModule
   ],
   providers: [],
