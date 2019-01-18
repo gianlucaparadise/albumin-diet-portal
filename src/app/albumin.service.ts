@@ -38,13 +38,18 @@ export class AlbuminService {
   }
 
   private async refreshTags() {
-    const url = `http://localhost:3000/api/me/tag`;
+    try {
+      const url = `http://localhost:3000/api/me/tag`;
 
-    const token = this.auth.token;
-    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
+      const token = this.auth.token;
+      httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
 
-    const response: any = await this.http.get(url, httpOptions).toPromise();
-    this.allTags.next(response.data);
+      const response: any = await this.http.get(url, httpOptions).toPromise();
+      this.allTags.next(response.data);
+    } catch (error) {
+      console.error('Error while refreshing the tag: ');
+      console.error(error);
+    }
   }
 
   // getAlbums() {
