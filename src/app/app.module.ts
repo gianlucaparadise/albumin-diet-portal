@@ -16,6 +16,9 @@ import { AlbumListComponent } from './album-list/album-list.component';
 import { LoginComponent } from './login/login.component';
 import { AlbumDetailComponent } from './album-detail/album-detail.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AnonymousGuard } from './guards/anonymous.guard';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     AlbumListComponent,
     LoginComponent,
     AlbumDetailComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     MatToolbarModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthGuard, AnonymousGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
