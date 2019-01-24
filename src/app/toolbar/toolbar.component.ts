@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   goToSearch() {
-
+    this.router.navigate(['/search']);
   }
 
   goToAlbum() {

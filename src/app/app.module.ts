@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -6,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // todo: refactor code to use an separated module that imports all the material modules
 import {
   MatChipsModule, MatSidenavModule, MatCardModule, MatIconModule, MatButtonModule,
-  MatFormFieldModule, MatToolbarModule
+  MatFormFieldModule, MatToolbarModule, MatInputModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +20,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AnonymousGuard } from './guards/anonymous.guard';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -28,10 +30,13 @@ import { AnonymousGuard } from './guards/anonymous.guard';
     LoginComponent,
     AlbumDetailComponent,
     ToolbarComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatSidenavModule,
@@ -41,6 +46,7 @@ import { AnonymousGuard } from './guards/anonymous.guard';
     MatButtonModule,
     MatFormFieldModule,
     MatToolbarModule,
+    MatInputModule,
     AppRoutingModule
   ],
   providers: [AuthGuard, AnonymousGuard],
