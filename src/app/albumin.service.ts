@@ -102,4 +102,28 @@ export class AlbuminService {
     this.refreshTags();
     return result;
   }
+
+  async searchAlbums(keywords: string) {
+    const params = new URLSearchParams();
+    if (keywords) {
+      params.set('q', keywords);
+    }
+    const url = `http://localhost:3000/api/me/album/search?${params}`;
+
+    const token = this.auth.token;
+    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
+    return this.http.get(url, httpOptions).toPromise();
+  }
+
+  searchArtists(keywords: string) {
+    const params = new URLSearchParams();
+    if (keywords) {
+      params.set('q', keywords);
+    }
+    const url = `http://localhost:3000/api/me/artist/search?${params}`;
+
+    const token = this.auth.token;
+    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
+    return this.http.get(url, httpOptions).toPromise();
+  }
 }

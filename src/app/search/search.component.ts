@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlbuminService } from '../albumin.service';
 
 @Component({
   selector: 'app-search',
@@ -15,7 +16,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchFieldControl = new FormControl();
   searchFieldControlSubscription: Subscription;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private albuminService: AlbuminService
+  ) { }
 
   ngOnInit() {
     // debounce keystroke events
@@ -26,6 +31,8 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.searchFieldValue = newValue;
       this.updateQueryParam();
       console.log(this.searchFieldValue);
+
+      this.search();
     });
 
     this.route.queryParams.subscribe(queryParams => {
@@ -57,6 +64,31 @@ export class SearchComponent implements OnInit, OnDestroy {
       });
   }
 
-  getValues() {
+  async search() {
+    if (this.searchFieldValue.trim() === '') {
+      // todo: clear results
+      return;
+    }
+
+    this.searchAlbums();
+    this.searchArtists();
+  }
+
+  async searchAlbums() {
+    try {
+      const albums = await this.albuminService.searchAlbums(this.searchFieldValue);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async searchArtists() {
+    try {
+      const artists = await this.albuminService.searchArtists(this.searchFieldValue);
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
