@@ -38,14 +38,4 @@ export class AlbumListComponent implements OnInit, OnDestroy {
         this.albums = response.data;
       });
   }
-
-  goToDetail(album) {
-    const albumId = album.album.album.id;
-    this.router.navigate([`/album`, albumId]);
-  }
-
-  playAlbum(album, event: MouseEvent) {
-    event.stopPropagation();
-    console.log(`play: ${album.album.album.external_urls.spotify}`);
-  }
 }

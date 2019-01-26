@@ -1,0 +1,46 @@
+.album-card {
+  max-width: 200px;
+  margin: 10px;
+}
+
+.album-image-wrapper {
+  position: relative;
+}
+
+.album-image {
+  height: 100%;
+}
+
+.play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: -16px -16px 19px -16px; /* I need this because MatCardImage has a -16px margin*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: rgba(0,0,0,.6);
+  opacity: 0;
+  transition: opacity 300ms;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// @mixin md-icon-size($size: 24px) {
+//   font-size: $size;
+//   height: $size;
+//   width: $size;
+// }
+
+// .play-icon {
+//   /* @include md-icon-size(76px); */
+//   width: 76px;
+//   height: 76px;
+//   font-size: 76px;
+//   color: white;
+// }

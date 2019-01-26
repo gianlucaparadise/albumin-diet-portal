@@ -21,6 +21,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AnonymousGuard } from './guards/anonymous.guard';
 import { SearchComponent } from './search/search.component';
+import { AlbumCardComponent } from './album-card/album-card.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SearchComponent } from './search/search.component';
     AlbumDetailComponent,
     ToolbarComponent,
     WelcomeComponent,
-    SearchComponent
+    SearchComponent,
+    AlbumCardComponent
   ],
   imports: [
     BrowserModule,

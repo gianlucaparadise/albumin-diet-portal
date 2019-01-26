@@ -103,7 +103,7 @@ export class AlbuminService {
     return result;
   }
 
-  async searchAlbums(keywords: string) {
+  async searchAlbums(keywords: string): Promise<any> {
     const params = new URLSearchParams();
     if (keywords) {
       params.set('q', keywords);
@@ -115,7 +115,7 @@ export class AlbuminService {
     return this.http.get(url, httpOptions).toPromise();
   }
 
-  searchArtists(keywords: string) {
+  searchArtists(keywords: string): Promise<any> {
     const params = new URLSearchParams();
     if (keywords) {
       params.set('q', keywords);

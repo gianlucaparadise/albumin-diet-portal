@@ -8,3 +8,19 @@
 .search-field {
   align-self: stretch;
 }
+
+.search-results {
+  display: flex;
+  flex-flow: row nowrap;
+  align-self: stretch;
+  background-color: blueviolet;
+}
+
+.albums-results {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  background-color: bisque;
+}

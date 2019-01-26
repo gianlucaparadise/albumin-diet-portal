@@ -16,6 +16,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchFieldControl = new FormControl();
   searchFieldControlSubscription: Subscription;
 
+  albums: any[];
+  artists: any[];
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -76,7 +79,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   async searchAlbums() {
     try {
-      const albums = await this.albuminService.searchAlbums(this.searchFieldValue);
+      const response = await this.albuminService.searchAlbums(this.searchFieldValue);
+      this.albums = response.data.albums.items;
 
     } catch (error) {
       console.log(error);
@@ -85,7 +89,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   async searchArtists() {
     try {
-      const artists = await this.albuminService.searchArtists(this.searchFieldValue);
+      const response = await this.albuminService.searchArtists(this.searchFieldValue);
+      this.artists = response.data.artists.items;
 
     } catch (error) {
       console.log(error);

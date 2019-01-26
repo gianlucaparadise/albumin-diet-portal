@@ -6,4 +6,12 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
+  <div class="search-results">
+    <div class="albums-results" *ngIf="albums">
+      <app-album-card *ngFor="let album of albums" [album]="album"></app-album-card>
+    </div>
+    <div class="artists-results" *ngIf="artists">
+
+    </div>
+  </div>
 </div>
