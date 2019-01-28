@@ -74,23 +74,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     this.searchAlbums();
-    this.searchArtists();
   }
 
   async searchAlbums() {
     try {
       const response = await this.albuminService.searchAlbums(this.searchFieldValue);
       this.albums = response.data.albums.items;
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async searchArtists() {
-    try {
-      const response = await this.albuminService.searchArtists(this.searchFieldValue);
-      this.artists = response.data.artists.items;
+      console.log('albums:');
+      console.log(this.albums);
 
     } catch (error) {
       console.log(error);
