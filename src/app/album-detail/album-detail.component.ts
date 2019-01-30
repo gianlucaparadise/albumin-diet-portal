@@ -57,9 +57,15 @@ export class AlbumDetailComponent implements OnInit {
   }
 
   async addTag(value: string) {
+    try {
     const response = await this.albuminService.addTagToAlbum(value, this.albumId);
     console.log(`Insertion completed:`);
     console.log(response);
+
+    } catch (error) {
+      console.log('Error while adding tag');
+      console.log(error);
+  }
   }
 
   async remove(tag: any) {
@@ -72,8 +78,16 @@ export class AlbumDetailComponent implements OnInit {
   }
 
   async removeTag(tag: any) {
+    try {
     const response = await this.albuminService.deleteTagFromAlbum(tag.name, this.albumId);
     console.log(`Delete completed:`);
     console.log(response);
+
+    } catch (error) {
+      console.log('Error while removing tag');
+      console.log(error);
+    }
+  }
+
   }
 }
