@@ -77,7 +77,7 @@ export class AlbuminService {
   }
 
   async addTagToAlbum(tag: string, albumSpotifyId: string) {
-    const url = `http://localhost:3000/api/me/tag-on-album`;
+    const url = `http://localhost:3000/api/me/tag`;
 
     const token = this.auth.token;
     httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
@@ -90,7 +90,7 @@ export class AlbuminService {
   }
 
   async deleteTagFromAlbum(tag: any, albumSpotifyId: string) {
-    const url = `http://localhost:3000/api/me/tag-on-album`;
+    const url = `http://localhost:3000/api/me/tag`;
 
     const token = this.auth.token;
     httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
