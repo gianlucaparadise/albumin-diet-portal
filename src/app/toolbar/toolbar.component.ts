@@ -23,4 +23,8 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/albums']);
   }
 
+  goToListeningList() {
+    this.router.navigate(['/listening-list']);
+  }
+
 }

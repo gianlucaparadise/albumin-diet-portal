@@ -22,6 +22,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AnonymousGuard } from './guards/anonymous.guard';
 import { SearchComponent } from './search/search.component';
 import { AlbumCardComponent } from './album-card/album-card.component';
+import { ListeningListComponent } from './listening-list/listening-list.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AlbumCardComponent } from './album-card/album-card.component';
     ToolbarComponent,
     WelcomeComponent,
     SearchComponent,
-    AlbumCardComponent
+    AlbumCardComponent,
+    ListeningListComponent
   ],
   imports: [
     BrowserModule,

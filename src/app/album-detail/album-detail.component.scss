@@ -14,7 +14,7 @@
   min-width: 250px;
 }
 
-.album-tags-container {
+.album-listening-list, .album-tags-container {
   flex-grow: 1;
   display: flex;
   flex-flow: column nowrap;
@@ -29,4 +29,8 @@
 
 .album-image {
   width: 70%;
+}
+
+.album-listening-list > button {
+  align-self: center;
 }

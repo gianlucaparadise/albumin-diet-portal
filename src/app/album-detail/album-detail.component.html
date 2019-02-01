@@ -6,7 +6,7 @@
     <h3>{{album.release_date | date:"yyyy"}}</h3>
     <h3>{{album.total_tracks}} tracks</h3>
   </div>
-  <div class="album-tags-container">
+  <div *ngIf="isSavedAlbum" class="album-tags-container">
     <h1>My Tags</h1>
     <mat-form-field>
       <mat-chip-list #tagList>
@@ -18,5 +18,9 @@
           (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
     </mat-form-field>
+  </div>
+  <div *ngIf="!isSavedAlbum" class="album-listening-list">
+    <button mat-raised-button *ngIf="!isInListeningList" (click)="addToListeningList()">Add to Listening-List</button>
+    <button mat-raised-button *ngIf="isInListeningList" (click)="removeFromListeningList()">Remove from Listening-List</button>
   </div>
 </div>

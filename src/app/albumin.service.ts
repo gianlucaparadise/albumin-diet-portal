@@ -103,7 +103,42 @@ export class AlbuminService {
     return result;
   }
 
-  async searchAlbums(keywords: string): Promise<any> {
+  async getListeningList(): Promise<any> {
+    const url = `http://localhost:3000/api/me/listening-list`;
+
+    const token = this.auth.token;
+    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
+    return this.http.get(url, httpOptions).toPromise();
+  }
+
+  async addToListeningList(albumSpotifyId: string) {
+    const url = `http://localhost:3000/api/me/listening-list`;
+
+    const token = this.auth.token;
+    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
+
+    const requestBody = { album: { spotifyId: albumSpotifyId } };
+
+    const result = await this.http.post(url, requestBody, httpOptions).toPromise();
+    this.refreshTags();
+    return result;
+  }
+
+  async deleteFromListeningList(albumSpotifyId: string) {
+    const url = `http://localhost:3000/api/me/listening-list`;
+
+    const token = this.auth.token;
+    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
+
+    const requestBody = { album: { spotifyId: albumSpotifyId } };
+    httpOptions['body'] = requestBody;
+
+    const result = await this.http.delete(url, httpOptions).toPromise();
+    this.refreshTags();
+    return result;
+  }
+
+  searchAlbums(keywords: string): Promise<any> {
     const params = new URLSearchParams();
     if (keywords) {
       params.set('q', keywords);

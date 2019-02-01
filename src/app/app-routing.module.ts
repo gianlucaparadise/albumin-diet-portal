@@ -6,13 +6,15 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { AnonymousGuard } from './guards/anonymous.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { SearchComponent } from './search/search.component';
+import { ListeningListComponent } from './listening-list/listening-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/albums', pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent, canActivate: [AnonymousGuard] },
   { path: 'albums', component: AlbumListComponent, canActivate: [AuthGuard] },
-  { path: 'album/:albumId', component: AlbumDetailComponent },
-  { path: 'search', component: SearchComponent },
+  { path: 'album/:albumId', component: AlbumDetailComponent, canActivate: [AuthGuard] },
+  { path: 'listening-list', component: ListeningListComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
