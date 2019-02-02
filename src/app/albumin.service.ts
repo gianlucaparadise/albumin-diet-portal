@@ -41,9 +41,6 @@ export class AlbuminService {
     try {
       const url = `http://localhost:3000/api/me/tag`;
 
-      const token = this.auth.token;
-      httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
-
       const response: any = await this.http.get(url, httpOptions).toPromise();
       this.allTags.next(response.data);
     } catch (error) {
@@ -71,16 +68,11 @@ export class AlbuminService {
   getAlbum(spotifyAlbumId: string): Observable<any> {
     const url = `http://localhost:3000/api/me/album/${spotifyAlbumId}`;
 
-    const token = this.auth.token;
-    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(url, httpOptions);
   }
 
   async addTagToAlbum(tag: string, albumSpotifyId: string) {
     const url = `http://localhost:3000/api/me/tag`;
-
-    const token = this.auth.token;
-    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
 
     const requestBody = { tag: { name: tag }, album: { spotifyId: albumSpotifyId } };
 
@@ -91,9 +83,6 @@ export class AlbuminService {
 
   async deleteTagFromAlbum(tag: any, albumSpotifyId: string) {
     const url = `http://localhost:3000/api/me/tag`;
-
-    const token = this.auth.token;
-    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
 
     const requestBody = { tag: { name: tag }, album: { spotifyId: albumSpotifyId } };
     httpOptions['body'] = requestBody;
@@ -106,16 +95,11 @@ export class AlbuminService {
   async getListeningList(): Promise<any> {
     const url = `http://localhost:3000/api/me/listening-list`;
 
-    const token = this.auth.token;
-    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(url, httpOptions).toPromise();
   }
 
   async addToListeningList(albumSpotifyId: string) {
     const url = `http://localhost:3000/api/me/listening-list`;
-
-    const token = this.auth.token;
-    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
 
     const requestBody = { album: { spotifyId: albumSpotifyId } };
 
@@ -126,9 +110,6 @@ export class AlbuminService {
 
   async deleteFromListeningList(albumSpotifyId: string) {
     const url = `http://localhost:3000/api/me/listening-list`;
-
-    const token = this.auth.token;
-    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
 
     const requestBody = { album: { spotifyId: albumSpotifyId } };
     httpOptions['body'] = requestBody;
@@ -145,8 +126,6 @@ export class AlbuminService {
     }
     const url = `http://localhost:3000/api/me/album/search?${params}`;
 
-    const token = this.auth.token;
-    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(url, httpOptions).toPromise();
   }
 
@@ -157,8 +136,6 @@ export class AlbuminService {
     }
     const url = `http://localhost:3000/api/me/artist/search?${params}`;
 
-    const token = this.auth.token;
-    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(url, httpOptions).toPromise();
   }
 }

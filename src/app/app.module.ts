@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // todo: refactor code to use an separated module that imports all the material modules
@@ -23,6 +23,7 @@ import { AnonymousGuard } from './guards/anonymous.guard';
 import { SearchComponent } from './search/search.component';
 import { AlbumCardComponent } from './album-card/album-card.component';
 import { ListeningListComponent } from './listening-list/listening-list.component';
+import { TokenInterceptor } from './http-interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,15 @@ import { ListeningListComponent } from './listening-list/listening-list.componen
     MatInputModule,
     AppRoutingModule
   ],
-  providers: [AuthGuard, AnonymousGuard],
+  providers: [
+    AuthGuard,
+    AnonymousGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

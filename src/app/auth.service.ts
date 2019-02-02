@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from './cookie.service';
 
+const STORAGE_TOKEN_KEY = 'x-auth-token';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +20,7 @@ export class AuthService {
   }
 
   get token() {
-    return this.cookie.getCookie('x-auth-token');
+    return this.cookie.getCookie(STORAGE_TOKEN_KEY);
   }
 
   /**
@@ -29,7 +31,7 @@ export class AuthService {
   }
 
   logout() {
-    this.cookie.deleteCookie('x-auth-token');
+    this.cookie.deleteCookie(STORAGE_TOKEN_KEY);
     this.checkIsLoggedIn();
   }
 }
