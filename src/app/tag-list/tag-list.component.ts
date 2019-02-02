@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AlbuminService } from '../albumin.service';
@@ -36,8 +36,12 @@ export class TagListComponent implements OnInit {
   }
 
   onChange() {
-    const selectedChips = <MatChip[]>this.tagList.selected;
-    const selectedTagNames = selectedChips.map(chip => (<string>chip.value).trim());
+    const selectedChip = <MatChip>this.tagList.selected;
+
+    const selectedTagNames = [];
+    if (selectedChip) {
+      selectedTagNames.push((<string>selectedChip.value).trim());
+    }
 
     // todo: retrieve selected tag names using bound models instead of html values
     //// I get only the names of the selected tags
@@ -48,7 +52,6 @@ export class TagListComponent implements OnInit {
     //   return names;
     // }, <string[]>[]);
 
-    console.log(selectedTagNames);
     const params = { tags: selectedTagNames };
     this.router.navigate(['/albums'], { queryParams: params });
   }
