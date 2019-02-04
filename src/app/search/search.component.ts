@@ -16,8 +16,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchFieldControl = new FormControl();
   searchFieldControlSubscription: Subscription;
 
+  scrollContainerSelector = '.mat-sidenav-content';
+
   albums: any[];
-  artists: any[];
 
   constructor(
     private router: Router,
@@ -84,6 +85,24 @@ export class SearchComponent implements OnInit, OnDestroy {
       console.log(this.albums);
 
     } catch (error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * Here I append the next page
+   */
+  async onPageFinishing() {
+    try {
+      const offset = this.albums.length;
+      const response = await this.albuminService.searchAlbums(this.searchFieldValue, offset);
+      this.albums.push(...response.data.albums.items);
+
+      console.log('added albums: ');
+      console.log(response.data.albums.items);
+
+    } catch (error) {
+      console.log('error while loading next page: ');
       console.log(error);
     }
   }

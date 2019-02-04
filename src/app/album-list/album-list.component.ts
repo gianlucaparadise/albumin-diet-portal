@@ -10,8 +10,11 @@ import { Subscription } from 'rxjs';
 })
 export class AlbumListComponent implements OnInit, OnDestroy {
 
+  tags: string[] = [];
   albums = [];
   queryParamsSub: Subscription;
+
+  scrollContainerSelector = '.mat-sidenav-content';
 
   constructor(
     private albuminService: AlbuminService,
@@ -23,8 +26,8 @@ export class AlbumListComponent implements OnInit, OnDestroy {
     this.queryParamsSub = this.route
       .queryParams
       .subscribe(params => {
-        const tags = params['tags'];
-        this.getAlbums(tags);
+        this.tags = params['tags'];
+        this.getAlbums(this.tags);
       });
   }
 
@@ -32,10 +35,29 @@ export class AlbumListComponent implements OnInit, OnDestroy {
     this.queryParamsSub.unsubscribe();
   }
 
-  getAlbums(tags: any) {
-    this.albuminService.getAlbums(tags)
-      .subscribe(response => {
-        this.albums = response.data;
-      });
+  async getAlbums(tags: any) {
+    try {
+      const response = await this.albuminService.getAlbums(tags);
+      this.albums = response.data;
+
+    } catch (error) {
+      console.log('error while getting my albums:');
+      console.log(error);
+    }
+  }
+
+  /**
+   * Here I append the next page
+   */
+  async onPageFinishing() {
+    try {
+      const offset = this.albums.length;
+      const response = await this.albuminService.getAlbums(this.tags, offset);
+      this.albums.push(...response.data);
+
+    } catch (error) {
+      console.log('error while loading next page: ');
+      console.log(error);
+    }
   }
 }

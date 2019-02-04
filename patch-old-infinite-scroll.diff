@@ -1,0 +1,78 @@
+diff --git a/src/app/app.module.ts b/src/app/app.module.ts
+index ea2293c..629f80c 100644
+--- a/src/app/app.module.ts
++++ b/src/app/app.module.ts
+@@ -24,6 +24,7 @@ import { SearchComponent } from './search/search.component';
+ import { AlbumCardComponent } from './album-card/album-card.component';
+ import { ListeningListComponent } from './listening-list/listening-list.component';
+ import { TokenInterceptor } from './http-interceptors/token.interceptor';
++import { InfiniteScrollerDirective } from './directives/infinite-scroller/infinite-scroller.directive';
+ 
+ @NgModule({
+   declarations: [
+@@ -36,7 +37,8 @@ import { TokenInterceptor } from './http-interceptors/token.interceptor';
+     WelcomeComponent,
+     SearchComponent,
+     AlbumCardComponent,
+-    ListeningListComponent
++    ListeningListComponent,
++    InfiniteScrollerDirective
+   ],
+   imports: [
+     BrowserModule,
+diff --git a/src/app/search/search.component.html b/src/app/search/search.component.html
+index 645d70f..5a91d15 100644
+--- a/src/app/search/search.component.html
++++ b/src/app/search/search.component.html
+@@ -1,5 +1,4 @@
+-<div class="search-container">
+-  <h1>Search</h1>
++<div class="search-container" appInfiniteScroller scrollPerecnt="70" immediateCallback="false" [scrollCallback]="scrollCallback">
+   <mat-form-field class="search-field">
+     <input #searchField matInput type="text" placeholder="Search" [value]="searchFieldValue" [formControl]="searchFieldControl">
+     <button mat-button *ngIf="searchField.value" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+diff --git a/src/app/search/search.component.scss b/src/app/search/search.component.scss
+index fc139f1..682c7d4 100644
+--- a/src/app/search/search.component.scss
++++ b/src/app/search/search.component.scss
+@@ -1,8 +1,10 @@
+ .search-container {
+   display: flex;
+   flex-flow: column nowrap;
+-  padding: 0px 20px;
++  padding: 20px 20px;
+   align-items: center;
++  height: 100%;
++  overflow-y: scroll;
+ }
+ 
+ .search-field {
+diff --git a/src/app/search/search.component.ts b/src/app/search/search.component.ts
+index a1922f5..005d87d 100644
+--- a/src/app/search/search.component.ts
++++ b/src/app/search/search.component.ts
+@@ -4,6 +4,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+ import { FormControl } from '@angular/forms';
+ import { Router, ActivatedRoute } from '@angular/router';
+ import { AlbuminService } from '../albumin.service';
++import { ScrollCallback } from '../directives/infinite-scroller/infinite-scroller.directive';
+ 
+ @Component({
+   selector: 'app-search',
+@@ -17,7 +18,6 @@ export class SearchComponent implements OnInit, OnDestroy {
+   searchFieldControlSubscription: Subscription;
+ 
+   albums: any[];
+-  artists: any[];
+ 
+   constructor(
+     private router: Router,
+@@ -87,4 +87,8 @@ export class SearchComponent implements OnInit, OnDestroy {
+       console.log(error);
+     }
+   }
++
++  scrollCallback() {
++    console.log('scroll callback');
++  }
+ }

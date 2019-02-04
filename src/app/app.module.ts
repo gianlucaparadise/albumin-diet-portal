@@ -10,6 +10,8 @@ import {
   MatFormFieldModule, MatToolbarModule, MatInputModule
 } from '@angular/material';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TagListComponent } from './tag-list/tag-list.component';
@@ -40,6 +42,7 @@ import { TokenInterceptor } from './http-interceptors/token.interceptor';
   ],
   imports: [
     BrowserModule,
+    InfiniteScrollModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

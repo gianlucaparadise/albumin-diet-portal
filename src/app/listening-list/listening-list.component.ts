@@ -11,6 +11,8 @@ export class ListeningListComponent implements OnInit {
 
   albums = [];
 
+  scrollContainerSelector = '.mat-sidenav-content';
+
   constructor(
     private albuminService: AlbuminService,
     private route: ActivatedRoute,
@@ -28,6 +30,21 @@ export class ListeningListComponent implements OnInit {
 
     } catch (error) {
       console.log('Error while getting listening list');
+      console.log(error);
+    }
+  }
+
+  /**
+   * Here I append the next page
+   */
+  async onPageFinishing() {
+    try {
+      const offset = this.albums.length;
+      const response = await this.albuminService.getListeningList(offset);
+      this.albums.push(...response.data);
+
+    } catch (error) {
+      console.log('error while loading next page: ');
       console.log(error);
     }
   }

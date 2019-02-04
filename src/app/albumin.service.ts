@@ -53,16 +53,24 @@ export class AlbuminService {
   //   return of(Album.data);
   // }
 
-  getAlbums(tags: string[] = null): Observable<any> {
+  getAlbums(tags: string[] = null, offset = 0, limit = 20): Promise<any> {
     const params = new URLSearchParams();
     if (tags) {
       params.set('tags', JSON.stringify(tags));
     }
+    if (offset) {
+      params.set('offset', offset.toString());
+    }
+    if (limit) {
+      params.set('limit', limit.toString());
+    }
+
     const url = `http://localhost:3000/api/me/album?${params}`;
 
     const token = this.auth.token;
     httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
-    return this.http.get(url, httpOptions);
+    const result = this.http.get(url, httpOptions).toPromise();
+    return result;
   }
 
   getAlbum(spotifyAlbumId: string): Observable<any> {
@@ -92,8 +100,16 @@ export class AlbuminService {
     return result;
   }
 
-  async getListeningList(): Promise<any> {
-    const url = `http://localhost:3000/api/me/listening-list`;
+  async getListeningList(offset = 0, limit = 20): Promise<any> {
+    const params = new URLSearchParams();
+    if (offset) {
+      params.set('offset', offset.toString());
+    }
+    if (limit) {
+      params.set('limit', limit.toString());
+    }
+
+    const url = `http://localhost:3000/api/me/listening-list?${params}`;
 
     return this.http.get(url, httpOptions).toPromise();
   }
@@ -119,11 +135,18 @@ export class AlbuminService {
     return result;
   }
 
-  searchAlbums(keywords: string): Promise<any> {
+  searchAlbums(keywords: string, offset = 0, limit = 20): Promise<any> {
     const params = new URLSearchParams();
     if (keywords) {
       params.set('q', keywords);
     }
+    if (offset) {
+      params.set('offset', offset.toString());
+    }
+    if (limit) {
+      params.set('limit', limit.toString());
+    }
+
     const url = `http://localhost:3000/api/me/album/search?${params}`;
 
     return this.http.get(url, httpOptions).toPromise();
