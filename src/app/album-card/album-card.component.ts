@@ -24,7 +24,7 @@ export class AlbumCardComponent implements OnInit {
   playAlbum(album, event: MouseEvent) {
     // todo: use event emitter
     event.stopPropagation();
-    console.log(`play: ${album.external_urls.spotify}`);
+    window.location.href = album.uri; // This opens the app
   }
 
 }

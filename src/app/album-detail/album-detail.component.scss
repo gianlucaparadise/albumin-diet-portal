@@ -12,6 +12,14 @@
   flex-shrink: 0;
   width: 30%;
   min-width: 250px;
+
+  label {
+    margin: 2px 0px;
+  }
+
+  .button-text {
+    margin-left: 2px;
+  }
 }
 
 .album-listening-list, .album-tags-container {

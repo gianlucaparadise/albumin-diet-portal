@@ -80,7 +80,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   async searchAlbums() {
     try {
       const response = await this.albuminService.searchAlbums(this.searchFieldValue);
-      this.albums = response.data.albums.items;
+      this.albums = response.data;
       console.log('albums:');
       console.log(this.albums);
 
@@ -96,10 +96,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     try {
       const offset = this.albums.length;
       const response = await this.albuminService.searchAlbums(this.searchFieldValue, offset);
-      this.albums.push(...response.data.albums.items);
+      this.albums.push(...response.data);
 
       console.log('added albums: ');
-      console.log(response.data.albums.items);
+      console.log(response.data);
 
     } catch (error) {
       console.log('error while loading next page: ');

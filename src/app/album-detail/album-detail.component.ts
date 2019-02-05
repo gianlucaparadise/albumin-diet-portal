@@ -118,4 +118,12 @@ export class AlbumDetailComponent implements OnInit {
       console.log(error);
     }
   }
+
+  playInApp() {
+    window.location.href = this.album.uri;
+  }
+
+  playInWeb() {
+    window.open(this.album.external_urls.spotify);
+  }
 }
