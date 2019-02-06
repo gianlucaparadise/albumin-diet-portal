@@ -26,6 +26,7 @@ import { SearchComponent } from './search/search.component';
 import { AlbumCardComponent } from './album-card/album-card.component';
 import { ListeningListComponent } from './listening-list/listening-list.component';
 import { TokenInterceptor } from './http-interceptors/token.interceptor';
+import { UrlInterceptor } from './http-interceptors/url.interceptor';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,11 @@ import { TokenInterceptor } from './http-interceptors/token.interceptor';
   providers: [
     AuthGuard,
     AnonymousGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UrlInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

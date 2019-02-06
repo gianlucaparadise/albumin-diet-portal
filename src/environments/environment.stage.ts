@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
-  name: 'production',
+  production: false,
+  name: 'stage',
   baseUrl: 'http://localhost:3000',
 };
