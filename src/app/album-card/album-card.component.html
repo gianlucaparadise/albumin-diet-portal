@@ -1,8 +1,8 @@
 <mat-card (click)="goToDetail(album)" class="album-card">
-  <div class="album-image-wrapper" (click)="playAlbum(album, $event)">
+  <div class="album-image-wrapper">
     <img mat-card-image src="{{album.images[1].url}}" alt="{{album.name}}" class="album-image">
     <div class="play-overlay">
-      <mat-icon class="play-icon" style="color: white;height: 70px;width: 70px;font-size: 70px;">play_circle_outline</mat-icon>
+      <mat-icon class="play-icon" (click)="playAlbum(album, $event)" style="color: white;height: 70px;width: 70px;font-size: 70px; cursor: pointer;">play_circle_outline</mat-icon>
     </div>
   </div>
   <mat-card-header>

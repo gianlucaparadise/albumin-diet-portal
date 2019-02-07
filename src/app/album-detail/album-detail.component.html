@@ -5,13 +5,13 @@
     <label class="mat-body">{{album.artists[0].name}}</label>
     <label class="mat-body">{{album.release_date | date:"yyyy"}}</label>
     <label class="mat-body">{{album.total_tracks}} tracks</label>
-    <button mat-button (click)="playInApp()">
+    <button mat-button color="primary" (click)="playInApp()">
       <i class="material-icons">
         play_circle_outline
       </i>
       <span class="button-text">Play in app</span>
     </button>
-    <button mat-button (click)="playInWeb()">
+    <button mat-button color="primary" (click)="playInWeb()">
       <i class="material-icons">
         play_circle_outline
       </i>
@@ -32,7 +32,9 @@
     </mat-form-field>
   </div>
   <div *ngIf="!isSavedAlbum" class="album-listening-list">
-    <button mat-raised-button *ngIf="!isInListeningList" (click)="addToListeningList()">Add to Listening-List</button>
-    <button mat-raised-button *ngIf="isInListeningList" (click)="removeFromListeningList()">Remove from Listening-List</button>
+    <button mat-raised-button color="primary" *ngIf="!isInListeningList" (click)="addToListeningList()">Add to
+      Listening-List</button>
+    <button mat-raised-button color="primary" *ngIf="isInListeningList" (click)="removeFromListeningList()">Remove from
+      Listening-List</button>
   </div>
 </div>

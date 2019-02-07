@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// TODO: how can I use this theme?
+// https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=424242&secondary.color=AEEA00&primary.text.color=ffffff&secondary.text.color=000000
+// <resources>
+//   <color name="primaryColor">#424242</color>
+//   <color name="primaryLightColor">#6d6d6d</color>
+//   <color name="primaryDarkColor">#1b1b1b</color>
+//   <color name="secondaryColor">#aeea00</color>
+//   <color name="secondaryLightColor">#e4ff54</color>
+//   <color name="secondaryDarkColor">#79b700</color>
+//   <color name="primaryTextColor">#ffffff</color>
+//   <color name="secondaryTextColor">#000000</color>
+// </resources>
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$albumin-primary: mat-palette($mat-lime);
+$albumin-accent: mat-palette($mat-grey);
+$albumin-warn: mat-palette($mat-deep-orange);
+
+$albumin-theme: mat-dark-theme($albumin-primary, $albumin-accent, $albumin-warn);
+
+@include angular-material-theme($albumin-theme);

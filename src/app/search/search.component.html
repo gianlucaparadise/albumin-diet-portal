@@ -2,7 +2,7 @@
   <h1>Search</h1>
   <mat-form-field class="search-field">
     <input #searchField matInput type="text" placeholder="Search" [value]="searchFieldValue" [formControl]="searchFieldControl">
-    <button mat-button *ngIf="searchField.value" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+    <button mat-button color="primary" *ngIf="searchField.value" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>

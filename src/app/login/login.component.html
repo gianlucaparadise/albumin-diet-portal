@@ -1,9 +1,9 @@
 <div class="login-container">
   <div *ngIf="!auth.isLoggedIn">
-    <button mat-raised-button (click)="login()">Spotify
+    <button mat-raised-button color="primary" (click)="login()">Spotify
       Login</button>
   </div>
   <div *ngIf="auth.isLoggedIn">
-    <button mat-raised-button (click)="logout()">Logout</button>
+    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
   </div>
 </div>
