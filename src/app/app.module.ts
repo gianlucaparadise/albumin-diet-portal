@@ -27,6 +27,7 @@ import { AlbumCardComponent } from './album-card/album-card.component';
 import { ListeningListComponent } from './listening-list/listening-list.component';
 import { TokenInterceptor } from './http-interceptors/token.interceptor';
 import { UrlInterceptor } from './http-interceptors/url.interceptor';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { UrlInterceptor } from './http-interceptors/url.interceptor';
     WelcomeComponent,
     SearchComponent,
     AlbumCardComponent,
-    ListeningListComponent
+    ListeningListComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

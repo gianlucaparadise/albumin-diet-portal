@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { AlbuminService } from '../albumin.service';
 
 @Component({
   selector: 'app-login',
@@ -8,9 +9,17 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  username: string;
+
+  constructor(public auth: AuthService, private albuminService: AlbuminService) { }
 
   ngOnInit() {
+    this.getProfile();
+  }
+
+  async getProfile() {
+    const response = await this.albuminService.getProfile();
+    this.username = response.data.display_name;
   }
 
   login() {

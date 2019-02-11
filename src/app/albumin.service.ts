@@ -28,6 +28,18 @@ export class AlbuminService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
+  async getProfile(): Promise<any> {
+    try {
+      const url = '/api/me/profile';
+      const response: any = await this.http.get(url, httpOptions).toPromise();
+      return response;
+
+    } catch (error) {
+      console.error('Error while getting profile: ');
+      console.error(error);
+    }
+  }
+
   // getTags(): Observable<Tag[]> {
   //   return of(this.tags);
   // }

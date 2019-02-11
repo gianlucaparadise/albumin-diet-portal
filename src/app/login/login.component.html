@@ -1,9 +1,13 @@
 <div class="login-container">
   <div *ngIf="!auth.isLoggedIn">
-    <button mat-raised-button color="primary" (click)="login()">Spotify
-      Login</button>
+    <button mat-button color="primary" (click)="login()">
+      Spotify Login
+    </button>
   </div>
   <div *ngIf="auth.isLoggedIn">
-    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+    <label class="mat-subheading-2">{{username}}</label>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon aria-label="Logout">exit_to_app</mat-icon>
+    </button>
   </div>
 </div>

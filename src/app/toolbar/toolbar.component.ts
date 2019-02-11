@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,23 +8,14 @@ import { Router } from '@angular/router';
 })
 export class ToolbarComponent implements OnInit {
 
-  title = 'Albumin diet';
+  title = ''; // Insert page title here
 
-  constructor(private router: Router) { }
+  constructor(private location: Location) { }
 
   ngOnInit() {
   }
 
-  goToSearch() {
-    this.router.navigate(['/search']);
+  goBack() {
+    this.location.back();
   }
-
-  goToAlbum() {
-    this.router.navigate(['/albums']);
-  }
-
-  goToListeningList() {
-    this.router.navigate(['/listening-list']);
-  }
-
 }
