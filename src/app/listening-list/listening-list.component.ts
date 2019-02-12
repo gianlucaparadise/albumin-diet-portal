@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlbuminService } from '../albumin.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { NavigationService } from '../services/navigation/navigation.service';
 
 @Component({
   selector: 'app-listening-list',
@@ -14,12 +14,12 @@ export class ListeningListComponent implements OnInit {
   scrollContainerSelector = '.mat-sidenav-content';
 
   constructor(
-    private albuminService: AlbuminService,
-    private route: ActivatedRoute,
-    private router: Router
+    private navigation: NavigationService,
+    private albuminService: AlbuminService
   ) { }
 
   ngOnInit() {
+    this.navigation.setTitle('My Listening List');
     this.getAlbums();
   }
 

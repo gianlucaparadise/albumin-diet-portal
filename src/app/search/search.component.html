@@ -1,5 +1,4 @@
 <div class="search-container">
-  <h1>Search</h1>
   <mat-form-field class="search-field">
     <input #searchField matInput type="text" placeholder="Search" [value]="searchFieldValue" [formControl]="searchFieldControl">
     <button mat-button color="primary" *ngIf="searchField.value" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">

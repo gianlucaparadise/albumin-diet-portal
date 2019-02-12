@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlbuminService } from '../albumin.service';
 import { Subscription } from 'rxjs';
+import { NavigationService } from '../services/navigation/navigation.service';
 
 @Component({
   selector: 'app-album-list',
@@ -17,12 +18,14 @@ export class AlbumListComponent implements OnInit, OnDestroy {
   scrollContainerSelector = '.mat-sidenav-content';
 
   constructor(
+    private navigation: NavigationService,
     private albuminService: AlbuminService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.navigation.setTitle('My Albums');
     this.queryParamsSub = this.route
       .queryParams
       .subscribe(params => {

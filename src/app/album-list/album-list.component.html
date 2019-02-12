@@ -1,5 +1,4 @@
 <div class="album-cards-container">
-  <h1>My Albums</h1>
   <div class="album-card-list" infiniteScroll (scrolled)="onPageFinishing()" [infiniteScrollDistance]="5"
     [infiniteScrollContainer]="scrollContainerSelector" fromRoot="true">
     <app-album-card *ngFor="let album of albums" [album]="album.album"></app-album-card>

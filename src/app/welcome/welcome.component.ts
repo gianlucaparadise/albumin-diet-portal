@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationService } from '../services/navigation/navigation.service';
 
 @Component({
   selector: 'app-welcome',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private navigation: NavigationService
+  ) { }
 
   ngOnInit() {
+    this.navigation.setTitle('Welcome');
   }
 
 }

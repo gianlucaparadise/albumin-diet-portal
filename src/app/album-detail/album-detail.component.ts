@@ -3,6 +3,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ActivatedRoute } from '@angular/router';
 import { MatChipInputEvent } from '@angular/material';
 import { AlbuminService } from '../albumin.service';
+import { NavigationService } from '../services/navigation/navigation.service';
 
 @Component({
   selector: 'app-album-detail',
@@ -20,11 +21,13 @@ export class AlbumDetailComponent implements OnInit {
   isInListeningList: boolean;
 
   constructor(
+    private navigation: NavigationService,
     private route: ActivatedRoute,
     private albuminService: AlbuminService
   ) { }
 
   ngOnInit() {
+    this.navigation.setTitle('');
     this.route.params.subscribe(params => {
       this.albumId = params['albumId'];
       console.log(`albumId ${this.albumId}`);
@@ -41,6 +44,8 @@ export class AlbumDetailComponent implements OnInit {
         this.tags = response.data.tags;
         this.isSavedAlbum = response.data.isSavedAlbum;
         this.isInListeningList = response.data.isInListeningList;
+
+        this.navigation.setTitle(this.album.name);
       });
   }
 

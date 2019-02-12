@@ -4,6 +4,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlbuminService } from '../albumin.service';
+import { NavigationService } from '../services/navigation/navigation.service';
 
 @Component({
   selector: 'app-search',
@@ -21,12 +22,14 @@ export class SearchComponent implements OnInit, OnDestroy {
   albums: any[];
 
   constructor(
+    private navigation: NavigationService,
     private router: Router,
     private route: ActivatedRoute,
     private albuminService: AlbuminService
   ) { }
 
   ngOnInit() {
+    this.navigation.setTitle('Search');
     // debounce keystroke events
     this.searchFieldControlSubscription = this.searchFieldControl.valueChanges.pipe(
       debounceTime(500),
