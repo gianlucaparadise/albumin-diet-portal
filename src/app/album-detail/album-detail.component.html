@@ -4,7 +4,7 @@
     <label class="mat-h1">{{album.name}}</label>
     <label class="mat-body">{{album.artists[0].name}}</label>
     <label class="mat-body">{{album.release_date | date:"yyyy"}}</label>
-    <label class="mat-body">{{album.total_tracks}} tracks</label>
+    <label class="mat-body">{{album.total_tracks}} tracks - {{album.tracks | tracksDuration | duration}}</label>
     <button mat-button color="primary" (click)="playInApp()">
       <i class="material-icons">
         play_circle_outline

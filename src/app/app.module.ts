@@ -28,6 +28,8 @@ import { ListeningListComponent } from './listening-list/listening-list.componen
 import { TokenInterceptor } from './http-interceptors/token.interceptor';
 import { UrlInterceptor } from './http-interceptors/url.interceptor';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { TracksDurationPipe } from './pipes/tracksDuration/tracksDuration.pipe';
+import { DurationPipe } from './pipes/duration/duration.pipe';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     SearchComponent,
     AlbumCardComponent,
     ListeningListComponent,
-    SidebarComponent
+    SidebarComponent,
+    TracksDurationPipe,
+    DurationPipe
   ],
   imports: [
     BrowserModule,
