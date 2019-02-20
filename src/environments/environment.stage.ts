@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
   name: 'stage',
-  baseUrl: 'https://albumin-diet-engine.herokuapp.com',
+  engineBaseUrl: 'https://albumin-diet-engine.herokuapp.com',
+  baseUrl: 'https://gianlucaparadise.github.io/albumin-diet-portal'
 };

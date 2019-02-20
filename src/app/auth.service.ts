@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from './cookie.service';
+import { environment } from './../environments/environment';
 
 const STORAGE_TOKEN_KEY = 'x-auth-token';
 
@@ -27,7 +28,9 @@ export class AuthService {
    * This performs a redirect
    */
   login() {
-    document.location.href = 'http://localhost:3000/auth/spotify?callback=http://localhost:4200/';
+    const ENGINE_BASE_URL = environment.engineBaseUrl;
+    const BASE_URL = environment.baseUrl;
+    document.location.href = `${ENGINE_BASE_URL}/auth/spotify?callback=${BASE_URL}`;
   }
 
   logout() {
