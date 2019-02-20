@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   name: 'stage',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://albumin-diet-engine.herokuapp.com',
 };
