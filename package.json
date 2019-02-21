@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build -c stage"
+    "clean": "rm -rf dist",
+    "heroku-postbuild": "ng build -c stage --aot --output-path dist"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +23,9 @@
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
+    "body-parser": "^1.18.3",
     "core-js": "^2.5.4",
+    "express": "^4.16.4",
     "ngx-infinite-scroll": "^7.0.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
