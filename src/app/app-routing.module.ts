@@ -7,9 +7,11 @@ import { AnonymousGuard } from './guards/anonymous.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { SearchComponent } from './search/search.component';
 import { ListeningListComponent } from './listening-list/listening-list.component';
+import { RootGuard } from './guards/root.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/albums', pathMatch: 'full' },
+  // I use WelcomeComponent as a dummy component because the RootGuard will always redirect
+  { path: '', component: WelcomeComponent, canActivate: [RootGuard] },
   { path: 'welcome', component: WelcomeComponent, canActivate: [AnonymousGuard] },
   { path: 'albums', component: AlbumListComponent, canActivate: [AuthGuard] },
   { path: 'album/:albumId', component: AlbumDetailComponent, canActivate: [AuthGuard] },

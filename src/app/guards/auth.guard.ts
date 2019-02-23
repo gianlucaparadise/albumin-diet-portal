@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
   }
 
   checkLogin(): boolean {
-    if (this.authService.isLoggedIn) {
+    if (this.authService.isLoggedIn.value) {
       return true;
     }
 

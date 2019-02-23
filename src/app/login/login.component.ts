@@ -14,11 +14,19 @@ export class LoginComponent implements OnInit {
   constructor(public auth: AuthService, private albuminService: AlbuminService) { }
 
   ngOnInit() {
-    this.getProfile();
+    this.auth.isLoggedIn.subscribe(isLogged => {
+      if (isLogged) {
+        this.getProfile();
+      }
+    });
   }
 
   async getProfile() {
     const response = await this.albuminService.getProfile();
+    if (!response) {
+      return;
+    }
+
     this.username = response.data.display_name;
   }
 

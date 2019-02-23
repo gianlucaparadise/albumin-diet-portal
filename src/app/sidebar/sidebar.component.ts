@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +11,7 @@ export class SidebarComponent implements OnInit {
 
   title = 'Albumin diet';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public auth: AuthService) { }
 
   ngOnInit() {
   }

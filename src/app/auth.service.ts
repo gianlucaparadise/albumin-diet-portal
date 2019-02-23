@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CookieService } from './cookie.service';
 import { environment } from './../environments/environment';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 
 const STORAGE_TOKEN_KEY = 'x-auth-token';
 
@@ -9,19 +11,60 @@ const STORAGE_TOKEN_KEY = 'x-auth-token';
 })
 export class AuthService {
 
-  isLoggedIn = false;
+  isLoggedIn = new BehaviorSubject(false);
 
-  constructor(private cookie: CookieService) {
+  constructor() {
     this.checkIsLoggedIn();
+  }
+
+  /**
+   * When the login ends, the backend redirects to the home page with a token in querystring.
+   * This extracts and saves the token from the querystring.
+   * @returns `true` if a token has been found
+   */
+  public updateTokenFromQuery(routeSnapshot: ActivatedRouteSnapshot): boolean {
+    const params = routeSnapshot.queryParams;
+    const authToken = params[STORAGE_TOKEN_KEY];
+
+    if (!authToken) {
+      return false;
+    }
+
+    this.token = authToken;
+    return true;
+  }
+
+  /**
+   * After every rest call, the backend refreshes the token and sends it in the headers.
+   * This extracts and saves the token from the headers.
+   * @returns `true` if a token has been found
+   */
+  public updateTokenFromHeaders(response: HttpResponse<any>): boolean {
+    const token = response.headers.get(STORAGE_TOKEN_KEY);
+
+    if (!token) {
+      return false;
+    }
+
+    this.token = token;
+    return true;
   }
 
   private checkIsLoggedIn() {
     const token = this.token;
-    this.isLoggedIn = (typeof token !== 'undefined' && token != null && token.trim() !== '');
+    const isLoggedIn = (typeof token !== 'undefined' && token != null && token.trim() !== '');
+    if (isLoggedIn !== this.isLoggedIn.value) {
+      this.isLoggedIn.next(isLoggedIn);
+    }
   }
 
   get token() {
-    return this.cookie.getCookie(STORAGE_TOKEN_KEY);
+    return localStorage.getItem(STORAGE_TOKEN_KEY);
+  }
+
+  set token(value: string) {
+    localStorage.setItem(STORAGE_TOKEN_KEY, value);
+    this.checkIsLoggedIn();
   }
 
   /**
@@ -34,7 +77,7 @@ export class AuthService {
   }
 
   logout() {
-    this.cookie.deleteCookie(STORAGE_TOKEN_KEY);
+    localStorage.removeItem(STORAGE_TOKEN_KEY);
     this.checkIsLoggedIn();
   }
 }

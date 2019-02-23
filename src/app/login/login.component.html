@@ -1,10 +1,10 @@
 <div class="login-container">
-  <div *ngIf="!auth.isLoggedIn">
+  <div *ngIf="!(auth.isLoggedIn | async)">
     <button mat-button color="primary" (click)="login()">
       Spotify Login
     </button>
   </div>
-  <div *ngIf="auth.isLoggedIn">
+  <div *ngIf="auth.isLoggedIn | async">
     <label class="mat-subheading-2">{{username}}</label>
     <button mat-icon-button (click)="logout()">
       <mat-icon aria-label="Logout">exit_to_app</mat-icon>

@@ -7,5 +7,5 @@
   <button mat-button color="primary" (click)="goToAlbum()">My Albums</button>
   <button mat-button color="primary" (click)="goToListeningList()">Listening List</button>
 
-  <app-tag-list></app-tag-list>
+  <app-tag-list *ngIf="auth.isLoggedIn | async"></app-tag-list>
 </div>

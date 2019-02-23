@@ -28,9 +28,9 @@ export class TokenInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       tap((event: HttpEvent<any>) => {
-        // if (event instanceof HttpResponse) {
-        //   // response handling
-        // }
+        if (event instanceof HttpResponse) {
+          this.auth.updateTokenFromHeaders(event);
+        }
       }, (err: any) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
