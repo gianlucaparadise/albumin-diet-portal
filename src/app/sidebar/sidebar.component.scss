@@ -4,3 +4,11 @@
   padding: 10px;
   min-height: 100%;
 }
+
+.headline-container {
+  background: url('../../assets/logo.png') no-repeat top left;
+  background-size: contain;
+  text-align: right;
+  padding-right: 5px;
+  margin: 5px 0px;
+}

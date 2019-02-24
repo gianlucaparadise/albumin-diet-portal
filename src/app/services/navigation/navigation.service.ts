@@ -19,6 +19,6 @@ export class NavigationService {
 
   public setTitle(val: string) {
     this.titleSubject.next(val);
-    this.titleService.setTitle(`Albumin diet - ${val}`);
+    this.titleService.setTitle(`${val} - Albumin diet`);
   }
 }
