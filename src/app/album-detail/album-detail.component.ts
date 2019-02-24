@@ -30,7 +30,6 @@ export class AlbumDetailComponent implements OnInit {
     this.navigation.setTitle('');
     this.route.params.subscribe(params => {
       this.albumId = params['albumId'];
-      console.log(`albumId ${this.albumId}`);
 
       this.getAlbum(this.albumId);
     });
@@ -39,7 +38,6 @@ export class AlbumDetailComponent implements OnInit {
   getAlbum(albumId: string) {
     this.albuminService.getAlbum(albumId)
       .subscribe(response => {
-        console.log(response.data);
         this.album = response.data.album;
         this.tags = response.data.tags;
         this.isSavedAlbum = response.data.isSavedAlbum;
@@ -49,14 +47,19 @@ export class AlbumDetailComponent implements OnInit {
       });
   }
 
-  add(event: MatChipInputEvent) {
+  async add(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
     if ((value || '').trim()) {
-      this.tags.push({ name: value.trim() });
-      this.addTag(value);
+      const tag = { name: value.trim() };
+      this.tags.push(tag);
+
+      const hasAdded = await this.addTag(value);
+      if (!hasAdded) {
+        const index = this.tags.indexOf(tag);
+        this.tags.splice(index, 1);
+      }
     }
 
     // Reset the input value
@@ -65,15 +68,15 @@ export class AlbumDetailComponent implements OnInit {
     }
   }
 
-  async addTag(value: string) {
+  async addTag(value: string): Promise<boolean> {
     try {
       const response = await this.albuminService.addTagToAlbum(value, this.albumId);
-      console.log(`Insertion completed:`);
-      console.log(response);
+      return true;
 
     } catch (error) {
-      console.log('Error while adding tag');
-      console.log(error);
+      console.error('Error while adding tag');
+      console.error(error);
+      return false;
     }
   }
 
@@ -89,38 +92,32 @@ export class AlbumDetailComponent implements OnInit {
   async removeTag(tag: any) {
     try {
       const response = await this.albuminService.deleteTagFromAlbum(tag.name, this.albumId);
-      console.log(`Delete completed:`);
-      console.log(response);
 
     } catch (error) {
-      console.log('Error while removing tag');
-      console.log(error);
+      console.error('Error while removing tag');
+      console.error(error);
     }
   }
 
   async addToListeningList() {
     try {
       const response = await this.albuminService.addToListeningList(this.albumId);
-      console.log(`Insertion completed:`);
-      console.log(response);
       this.isInListeningList = true;
 
     } catch (error) {
-      console.log('Error while adding to listening list');
-      console.log(error);
+      console.error('Error while adding to listening list');
+      console.error(error);
     }
   }
 
   async removeFromListeningList() {
     try {
       const response = await this.albuminService.deleteFromListeningList(this.albumId);
-      console.log(`Delete completed:`);
-      console.log(response);
       this.isInListeningList = false;
 
     } catch (error) {
-      console.log('Error while deleting from listening list');
-      console.log(error);
+      console.error('Error while deleting from listening list');
+      console.error(error);
     }
   }
 
