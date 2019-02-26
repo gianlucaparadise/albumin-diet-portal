@@ -5,9 +5,18 @@
 
   <app-login></app-login>
 
-  <button mat-button color="primary" (click)="goToSearch()">Search</button>
-  <button mat-button color="primary" (click)="goToAlbum()">My Albums</button>
-  <button mat-button color="primary" (click)="goToListeningList()">Listening List</button>
+  <button mat-button color="primary" class="menu-button" (click)="goToSearch()">
+    <mat-icon>search</mat-icon>
+    Search
+  </button>
+  <button mat-button color="primary" class="menu-button" (click)="goToAlbum()">
+    <mat-icon>album</mat-icon>
+    My Albums
+  </button>
+  <button mat-button color="primary" class="menu-button" (click)="goToListeningList()">
+    <mat-icon svgIcon="eggs_filled"></mat-icon>
+    Listening List
+  </button>
 
   <app-tag-list *ngIf="auth.isLoggedIn | async"></app-tag-list>
 </div>

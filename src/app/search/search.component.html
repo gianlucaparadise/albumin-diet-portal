@@ -1,14 +1,16 @@
 <div class="search-container">
   <mat-form-field class="search-field">
-    <input #searchField matInput type="text" placeholder="Search" [value]="searchFieldValue" [formControl]="searchFieldControl">
-    <button mat-button color="primary" *ngIf="searchField.value" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+    <input #searchField matInput type="text" placeholder="Search" [value]="searchFieldValue"
+      [formControl]="searchFieldControl">
+    <button mat-button color="primary" *ngIf="searchField.value" matSuffix mat-icon-button aria-label="Clear"
+      (click)="clear()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
   <div class="search-results" infiniteScroll (scrolled)="onPageFinishing()" [infiniteScrollDistance]="5"
     [infiniteScrollContainer]="scrollContainerSelector" fromRoot="true">
     <div class="albums-results" *ngIf="albums">
-      <app-album-card *ngFor="let album of albums" [album]="album"></app-album-card>
+      <app-album-card *ngFor="let album of albums" [album]="album.album"></app-album-card>
     </div>
   </div>
 </div>
