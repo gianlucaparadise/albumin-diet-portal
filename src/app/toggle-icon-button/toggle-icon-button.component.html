@@ -1,0 +1,4 @@
+<button mat-icon-button (click)="onClick()" matTooltip="{{buttonTooltip}}" [matTooltipShowDelay]="'1000'">
+  <mat-icon *ngIf="isSvg" svgIcon="{{iconName}}"></mat-icon>
+  <mat-icon *ngIf="!isSvg">{{iconName}}</mat-icon>
+</button>

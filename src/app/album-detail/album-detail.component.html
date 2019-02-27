@@ -5,18 +5,26 @@
     <label class="mat-body">{{album.artists[0].name}}</label>
     <label class="mat-body">{{album.release_date | date:"yyyy"}}</label>
     <label class="mat-body">{{album.total_tracks}} tracks - {{album.tracks | tracksDuration | duration}}</label>
-    <button mat-button color="primary" (click)="playInApp()">
-      <i class="material-icons">
-        play_circle_outline
-      </i>
-      <span class="button-text">Play in app</span>
-    </button>
-    <button mat-button color="primary" (click)="playInWeb()">
-      <i class="material-icons">
-        play_circle_outline
-      </i>
-      <span class="button-text">Play in web</span>
-    </button>
+    <div class="row icons">
+      <app-toggle-icon-button [type]="'eggs'" [selected]="isInListeningList" (click)="toggleListeningList()">
+      </app-toggle-icon-button>
+      <app-toggle-icon-button [type]="'save'" [selected]="isSavedAlbum">
+      </app-toggle-icon-button>
+    </div>
+    <div class="row">
+      <button mat-button color="primary" (click)="playInApp()">
+        <i class="material-icons">
+          play_circle_outline
+        </i>
+        <span class="button-text">Play in app</span>
+      </button>
+      <button mat-button color="primary" (click)="playInWeb()">
+        <i class="material-icons">
+          play_circle_outline
+        </i>
+        <span class="button-text">Play in web</span>
+      </button>
+    </div>
   </div>
   <div *ngIf="isSavedAlbum" class="album-tags-container">
     <h1>My Tags</h1>
@@ -26,15 +34,9 @@
           {{tag.name}}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
-        <input [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
-          (matChipInputTokenEnd)="add($event)">
+        <input [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
     </mat-form-field>
-  </div>
-  <div *ngIf="!isSavedAlbum" class="album-listening-list">
-    <button mat-raised-button color="primary" *ngIf="!isInListeningList" (click)="addToListeningList()">Add to
-      Listening-List</button>
-    <button mat-raised-button color="primary" *ngIf="isInListeningList" (click)="removeFromListeningList()">Remove from
-      Listening-List</button>
   </div>
 </div>

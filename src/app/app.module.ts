@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // todo: refactor code to use an separated module that imports all the material modules
 import {
   MatChipsModule, MatSidenavModule, MatCardModule, MatIconModule, MatButtonModule,
-  MatFormFieldModule, MatToolbarModule, MatInputModule
+  MatFormFieldModule, MatToolbarModule, MatInputModule, MatTooltipModule
 } from '@angular/material';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -29,6 +29,7 @@ import { TokenInterceptor } from './http-interceptors/token.interceptor';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TracksDurationPipe } from './pipes/tracksDuration/tracksDuration.pipe';
 import { DurationPipe } from './pipes/duration/duration.pipe';
+import { ToggleIconButtonComponent } from './toggle-icon-button/toggle-icon-button.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DurationPipe } from './pipes/duration/duration.pipe';
     ListeningListComponent,
     SidebarComponent,
     TracksDurationPipe,
-    DurationPipe
+    DurationPipe,
+    ToggleIconButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,7 @@ import { DurationPipe } from './pipes/duration/duration.pipe';
     MatFormFieldModule,
     MatToolbarModule,
     MatInputModule,
+    MatTooltipModule,
     AppRoutingModule
   ],
   providers: [

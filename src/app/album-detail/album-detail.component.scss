@@ -12,6 +12,7 @@
   flex-shrink: 0;
   width: 30%;
   min-width: 250px;
+  text-align: center;
 
   label {
     margin: 2px 0px;
@@ -20,6 +21,16 @@
   .button-text {
     margin-left: 2px;
   }
+}
+
+.album-info-container > .row {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.row.icons > button {
+  margin: 0px 5px;
 }
 
 .album-listening-list, .album-tags-container {

@@ -99,6 +99,14 @@ export class AlbumDetailComponent implements OnInit {
     }
   }
 
+  async toggleListeningList() {
+    if (this.isInListeningList) {
+      await this.removeFromListeningList();
+    } else {
+      await this.addToListeningList();
+    }
+  }
+
   async addToListeningList() {
     try {
       const response = await this.albuminService.addToListeningList(this.albumId);
