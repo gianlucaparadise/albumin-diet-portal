@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlbuminService } from '../albumin.service';
 
 @Component({
   selector: 'app-album-card',
@@ -8,9 +9,9 @@ import { Router } from '@angular/router';
 })
 export class AlbumCardComponent implements OnInit {
 
-  @Input() album: any;
+  @Input() albumDescriptor: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private albuminService: AlbuminService) { }
 
   ngOnInit() {
   }
@@ -18,13 +19,44 @@ export class AlbumCardComponent implements OnInit {
   goToDetail(album) {
     // todo: use event emitter
     const albumId = album.id;
-    this.router.navigate([`/album`, albumId]);
+    this.router.navigate([`/album`, this.albumDescriptor.album.id]);
   }
 
   playAlbum(album, event: MouseEvent) {
     // todo: use event emitter
     event.stopPropagation();
     window.location.href = album.uri; // This opens the app
+  }
+
+  async toggleListeningList(event: MouseEvent) {
+    event.stopPropagation();
+    if (this.albumDescriptor.isInListeningList) {
+      await this.removeFromListeningList();
+    } else {
+      await this.addToListeningList();
+    }
+  }
+
+  async addToListeningList() {
+    try {
+      const response = await this.albuminService.addToListeningList(this.albumDescriptor.album.id);
+      this.albumDescriptor.isInListeningList = true;
+
+    } catch (error) {
+      console.error('Error while adding to listening list');
+      console.error(error);
+    }
+  }
+
+  async removeFromListeningList() {
+    try {
+      const response = await this.albuminService.deleteFromListeningList(this.albumDescriptor.album.id);
+      this.albumDescriptor.isInListeningList = false;
+
+    } catch (error) {
+      console.error('Error while deleting from listening list');
+      console.error(error);
+    }
   }
 
 }

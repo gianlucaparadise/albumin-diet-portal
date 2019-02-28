@@ -1,13 +1,20 @@
-<mat-card (click)="goToDetail(album)" class="album-card">
+<mat-card (click)="goToDetail(albumDescriptor)" class="album-card">
   <div class="album-image-wrapper">
-    <img mat-card-image src="{{album.images[1].url}}" alt="{{album.name}}" class="album-image">
+    <img mat-card-image src="{{albumDescriptor.album.images[1].url}}" alt="{{albumDescriptor.album.name}}"
+      class="album-image">
     <div class="play-overlay">
-      <mat-icon class="play-icon" (click)="playAlbum(album, $event)" style="color: white;height: 70px;width: 70px;font-size: 70px; cursor: pointer;">play_circle_outline</mat-icon>
+      <mat-icon class="play-icon" (click)="playAlbum(albumDescriptor.album, $event)"
+        style="color: white;height: 70px;width: 70px;font-size: 70px; cursor: pointer;">play_circle_outline</mat-icon>
     </div>
   </div>
   <mat-card-header>
-    <mat-card-subtitle>{{album.artists[0].name}}</mat-card-subtitle>
-    <mat-card-subtitle>{{album.release_date | date:"yyyy"}}</mat-card-subtitle>
-    <mat-card-title>{{album.name}}</mat-card-title>
+    <mat-card-subtitle>{{albumDescriptor.album.artists[0].name}}</mat-card-subtitle>
+    <mat-card-subtitle>{{albumDescriptor.album.release_date | date:"yyyy"}}</mat-card-subtitle>
+    <mat-card-title>{{albumDescriptor.album.name}}</mat-card-title>
   </mat-card-header>
+  <mat-card-actions>
+    <app-toggle-icon-button [type]="'eggs'" [selected]="albumDescriptor.isInListeningList"
+      (click)="toggleListeningList($event)">
+    </app-toggle-icon-button>
+  </mat-card-actions>
 </mat-card>

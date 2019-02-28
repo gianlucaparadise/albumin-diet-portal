@@ -40,7 +40,7 @@ export class ToggleIconButtonComponent implements OnInit, OnChanges {
 
   @Input() type: IconType;
   @Input() selected: boolean;
-  @Output() click = new EventEmitter<void>();
+  @Output() click = new EventEmitter<MouseEvent>();
 
   isSvg: boolean;
   iconName: string;
@@ -64,12 +64,12 @@ export class ToggleIconButtonComponent implements OnInit, OnChanges {
     this.buttonTooltip = this.selected ? icon.selectedTooltip : icon.unselectedTooltip;
   }
 
-  onClick() {
+  onClick(event: MouseEvent) {
     if (!this.click) {
       return;
     }
 
-    this.click.emit();
+    this.click.emit(event);
   }
 
 }

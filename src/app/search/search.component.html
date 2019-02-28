@@ -10,7 +10,7 @@
   <div class="search-results" infiniteScroll (scrolled)="onPageFinishing()" [infiniteScrollDistance]="5"
     [infiniteScrollContainer]="scrollContainerSelector" fromRoot="true">
     <div class="albums-results" *ngIf="albums">
-      <app-album-card *ngFor="let album of albums" [album]="album.album"></app-album-card>
+      <app-album-card *ngFor="let album of albums" [albumDescriptor]="album"></app-album-card>
     </div>
   </div>
 </div>
