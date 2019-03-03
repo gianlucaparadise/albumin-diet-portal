@@ -97,6 +97,25 @@ export class AlbuminService {
     return this.http.get(url, httpOptions);
   }
 
+  async saveAlbum(spotifyAlbumId: string) {
+    const url = this.getUrl(`/api/me/album`);
+
+    const requestBody = { album: { spotifyId: spotifyAlbumId } };
+
+    const result = await this.http.put(url, requestBody, httpOptions).toPromise();
+    return result;
+  }
+
+  async unsaveAlbum(spotifyAlbumId: string) {
+    const url = this.getUrl(`/api/me/album`);
+
+    const requestBody = { album: { spotifyId: spotifyAlbumId } };
+    httpOptions['body'] = requestBody;
+
+    const result = await this.http.delete(url, httpOptions).toPromise();
+    return result;
+  }
+
   async addTagToAlbum(tag: string, albumSpotifyId: string) {
     const url = this.getUrl(`/api/me/tag`);
 

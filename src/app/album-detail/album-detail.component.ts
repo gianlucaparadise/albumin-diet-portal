@@ -47,6 +47,7 @@ export class AlbumDetailComponent implements OnInit {
       });
   }
 
+  //#region Tags
   async add(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
@@ -98,7 +99,9 @@ export class AlbumDetailComponent implements OnInit {
       console.error(error);
     }
   }
+  //#endregion
 
+  //#region Listening List
   async toggleListeningList() {
     if (this.isInListeningList) {
       await this.removeFromListeningList();
@@ -128,12 +131,49 @@ export class AlbumDetailComponent implements OnInit {
       console.error(error);
     }
   }
+  //#endregion
 
+  //#region Save Album
+  async toggleSaveAlbum() {
+    if (this.isSavedAlbum) {
+      await this.unsaveAlbum();
+    } else {
+      await this.saveAlbum();
+    }
+  }
+
+  async saveAlbum() {
+    try {
+      const response = await this.albuminService.saveAlbum(this.albumId);
+      this.isSavedAlbum = true;
+
+    } catch (error) {
+      console.error('Error while saving album');
+      console.error(error);
+    }
+  }
+
+  async unsaveAlbum() {
+    try {
+      const response = await this.albuminService.unsaveAlbum(this.albumId);
+      this.isSavedAlbum = false;
+
+    } catch (error) {
+      console.error('Error while unsaving album');
+      console.error(error);
+    }
+  }
+  //#endregion
+
+  //#region Play
   playInApp() {
+    // this will wake Spotify App because contains a custom schema
     window.location.href = this.album.uri;
   }
 
   playInWeb() {
+    // this opens a new tab
     window.open(this.album.external_urls.spotify);
   }
+  //#endregion
 }
