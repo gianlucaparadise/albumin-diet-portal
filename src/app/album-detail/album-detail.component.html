@@ -6,9 +6,11 @@
     <label class="mat-body">{{album.release_date | date:"yyyy"}}</label>
     <label class="mat-body">{{album.total_tracks}} tracks - {{album.tracks | tracksDuration | duration}}</label>
     <div class="row icons">
-      <app-toggle-icon-button [type]="'eggs'" [selected]="isInListeningList" (click)="toggleListeningList()">
+      <app-toggle-icon-button [type]="'eggs'" [selected]="isInListeningList" [disabled]="!canToggleListeningList"
+        (click)="toggleListeningList()">
       </app-toggle-icon-button>
-      <app-toggle-icon-button [type]="'save'" [selected]="isSavedAlbum" (click)="toggleSaveAlbum()">
+      <app-toggle-icon-button [type]="'save'" [selected]="isSavedAlbum" [disabled]="!canToggleSave"
+        (click)="toggleSaveAlbum()">
       </app-toggle-icon-button>
     </div>
     <div class="row">

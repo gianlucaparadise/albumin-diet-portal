@@ -20,6 +20,9 @@ export class AlbumDetailComponent implements OnInit {
   isSavedAlbum: boolean;
   isInListeningList: boolean;
 
+  canToggleListeningList = true;
+  canToggleSave = true;
+
   constructor(
     private navigation: NavigationService,
     private route: ActivatedRoute,
@@ -103,11 +106,13 @@ export class AlbumDetailComponent implements OnInit {
 
   //#region Listening List
   async toggleListeningList() {
+    this.canToggleListeningList = false;
     if (this.isInListeningList) {
       await this.removeFromListeningList();
     } else {
       await this.addToListeningList();
     }
+    this.canToggleListeningList = true;
   }
 
   async addToListeningList() {
@@ -135,11 +140,13 @@ export class AlbumDetailComponent implements OnInit {
 
   //#region Save Album
   async toggleSaveAlbum() {
+    this.canToggleSave = false;
     if (this.isSavedAlbum) {
       await this.unsaveAlbum();
     } else {
       await this.saveAlbum();
     }
+    this.canToggleSave = true;
   }
 
   async saveAlbum() {

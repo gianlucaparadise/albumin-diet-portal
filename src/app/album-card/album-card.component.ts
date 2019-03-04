@@ -10,6 +10,7 @@ import { AlbuminService } from '../albumin.service';
 export class AlbumCardComponent implements OnInit {
 
   @Input() albumDescriptor: any;
+  canToggleListeningList = true;
 
   constructor(private router: Router, private albuminService: AlbuminService) { }
 
@@ -30,11 +31,13 @@ export class AlbumCardComponent implements OnInit {
 
   async toggleListeningList(event: MouseEvent) {
     event.stopPropagation();
+    this.canToggleListeningList = false;
     if (this.albumDescriptor.isInListeningList) {
       await this.removeFromListeningList();
     } else {
       await this.addToListeningList();
     }
+    this.canToggleListeningList = true;
   }
 
   async addToListeningList() {

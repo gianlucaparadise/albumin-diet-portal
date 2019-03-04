@@ -14,7 +14,7 @@
   </mat-card-header>
   <mat-card-actions>
     <app-toggle-icon-button [type]="'eggs'" [selected]="albumDescriptor.isInListeningList"
-      (click)="toggleListeningList($event)">
+      [disabled]="!canToggleListeningList" (click)="toggleListeningList($event)">
     </app-toggle-icon-button>
   </mat-card-actions>
 </mat-card>
