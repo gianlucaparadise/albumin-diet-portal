@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AlbuminService } from '../albumin.service';
-import { Tag } from '../models/Tag';
+import { Tag, UntaggedName as UNTAGGED_NAME } from '../models/Tag';
 import { MatChip, MatChipList } from '@angular/material';
 
 @Component({
@@ -26,7 +26,13 @@ export class TagListComponent implements OnInit {
 
   getTags(): void {
     this.albuminService.getTags()
-      .subscribe(allTags => this.tags = allTags);
+      .subscribe(allTags => {
+        if (allTags && allTags.length > 0) {
+          const untaggedTag: Tag = { name: UNTAGGED_NAME, untaggedTag: true };
+          allTags.unshift(untaggedTag);
+        }
+        this.tags = allTags;
+      });
   }
 
   onTagClick(tag: Tag, chip: MatChip): void {
@@ -38,9 +44,16 @@ export class TagListComponent implements OnInit {
   onChange() {
     const selectedChip = <MatChip>this.tagList.selected;
 
+    let showUntagged = false;
     const selectedTagNames = [];
     if (selectedChip) {
-      selectedTagNames.push((<string>selectedChip.value).trim());
+      const name = (<string>selectedChip.value).trim();
+
+      if (name === UNTAGGED_NAME) {
+        showUntagged = true;
+      } else {
+        selectedTagNames.push(name);
+      }
     }
 
     // todo: retrieve selected tag names using bound models instead of html values
@@ -53,6 +66,9 @@ export class TagListComponent implements OnInit {
     // }, <string[]>[]);
 
     const params = { tags: selectedTagNames };
+    if (showUntagged) {
+      params['untagged'] = true;
+    }
     this.router.navigate(['/albums'], { queryParams: params });
   }
 }

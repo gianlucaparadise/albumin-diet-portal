@@ -12,6 +12,7 @@ import { NavigationService } from '../services/navigation/navigation.service';
 export class AlbumListComponent implements OnInit, OnDestroy {
 
   tags: string[] = [];
+  showUntagged = false;
   albums = [];
   queryParamsSub: Subscription;
 
@@ -30,7 +31,8 @@ export class AlbumListComponent implements OnInit, OnDestroy {
       .queryParams
       .subscribe(params => {
         this.tags = params['tags'];
-        this.getAlbums(this.tags);
+        this.showUntagged = params['untagged'] === 'true';
+        this.getAlbums(this.tags, this.showUntagged);
       });
   }
 
@@ -38,9 +40,9 @@ export class AlbumListComponent implements OnInit, OnDestroy {
     this.queryParamsSub.unsubscribe();
   }
 
-  async getAlbums(tags: any) {
+  async getAlbums(tags: any, showUntagged: boolean) {
     try {
-      const response = await this.albuminService.getAlbums(tags);
+      const response = await this.albuminService.getAlbums(tags, showUntagged);
       this.albums = response.data;
 
     } catch (error) {
@@ -55,7 +57,7 @@ export class AlbumListComponent implements OnInit, OnDestroy {
   async onPageFinishing() {
     try {
       const offset = this.albums.length;
-      const response = await this.albuminService.getAlbums(this.tags, offset);
+      const response = await this.albuminService.getAlbums(this.tags, this.showUntagged, offset);
       this.albums.push(...response.data);
 
     } catch (error) {

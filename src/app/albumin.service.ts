@@ -71,10 +71,13 @@ export class AlbuminService {
   //   return of(Album.data);
   // }
 
-  getAlbums(tags: string[] = null, offset = 0, limit = 20): Promise<any> {
+  getAlbums(tags: string[] = null, showUntagged: boolean, offset = 0, limit = 20): Promise<any> {
     const params = new URLSearchParams();
     if (tags) {
       params.set('tags', JSON.stringify(tags));
+    }
+    if (showUntagged) {
+      params.set('untagged', 'true');
     }
     if (offset) {
       params.set('offset', offset.toString());
