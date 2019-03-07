@@ -3,10 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of, BehaviorSubject } from 'rxjs';
 
-import { environment } from './../environments/environment';
+import { environment } from '../environments/environment';
 import { AuthService } from './auth.service';
-import { Tag } from './models/Tag';
-import { Album } from './models/Album';
+import {
+  GetProfileResponse, GetMyTagsResponse, GetMyAlbumsResponse,
+  GetAlbumResponse, UserAlbumsResponse, ITag
+} from 'albumin-diet-types';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,15 +18,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AlbuminService {
-  // todo: share models between backend and frontend
 
-  /**
-   * Stub tags
-   */
-  // tslint:disable-next-line:max-line-length
-  // tags: Tag[] = [{ name: 'Happy' }, { name: 'Sad' }, { name: 'Concentrate' }, { name: 'To be listened' }, { name: 'Strong' }, { name: 'Singalong' }, { name: 'It-pop' }, { name: 'Indie2' }, { name: 'Best of 2012' }, { name: 'Best of 2013' }, { name: 'Best of 2014' }, { name: 'Best of 2015' }, { name: 'Best of 2016' }, { name: 'Best of 2019' }, { name: 'Best of 2018' }, { name: 'Fresh finds' }, { name: 'Instrumental' }];
-
-  private allTags = new BehaviorSubject([]);
+  private allTags = new BehaviorSubject<ITag[]>([]);
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
@@ -34,10 +29,10 @@ export class AlbuminService {
     return engineBaseUrl + endpoint;
   }
 
-  async getProfile(): Promise<any> {
+  async getProfile(): Promise<GetProfileResponse> {
     try {
       const url = this.getUrl('/api/me/profile');
-      const response: any = await this.http.get(url, httpOptions).toPromise();
+      const response = <GetProfileResponse>await this.http.get(url, httpOptions).toPromise();
       return response;
 
     } catch (error) {
@@ -46,11 +41,7 @@ export class AlbuminService {
     }
   }
 
-  // getTags(): Observable<Tag[]> {
-  //   return of(this.tags);
-  // }
-
-  getTags(): BehaviorSubject<any[]> {
+  getTags(): BehaviorSubject<ITag[]> {
     this.refreshTags();
     return this.allTags;
   }
@@ -59,7 +50,7 @@ export class AlbuminService {
     try {
       const url = this.getUrl(`/api/me/tag`);
 
-      const response: any = await this.http.get(url, httpOptions).toPromise();
+      const response = <GetMyTagsResponse>await this.http.get(url, httpOptions).toPromise();
       this.allTags.next(response.data);
     } catch (error) {
       console.error('Error while refreshing the tag: ');
@@ -67,11 +58,7 @@ export class AlbuminService {
     }
   }
 
-  // getAlbums() {
-  //   return of(Album.data);
-  // }
-
-  getAlbums(tags: string[] = null, showUntagged: boolean, offset = 0, limit = 20): Promise<any> {
+  getAlbums(tags: string[] = null, showUntagged: boolean, offset = 0, limit = 20): Promise<GetMyAlbumsResponse> {
     const params = new URLSearchParams();
     if (tags) {
       params.set('tags', JSON.stringify(tags));
@@ -90,14 +77,14 @@ export class AlbuminService {
 
     const token = this.auth.token;
     httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
-    const result = this.http.get(url, httpOptions).toPromise();
+    const result = this.http.get<GetMyAlbumsResponse>(url, httpOptions).toPromise();
     return result;
   }
 
-  getAlbum(spotifyAlbumId: string): Observable<any> {
+  getAlbum(spotifyAlbumId: string): Observable<GetAlbumResponse> {
     const url = this.getUrl(`/api/me/album/${spotifyAlbumId}`);
 
-    return this.http.get(url, httpOptions);
+    return this.http.get<GetAlbumResponse>(url, httpOptions);
   }
 
   async saveAlbum(spotifyAlbumId: string) {
@@ -140,7 +127,7 @@ export class AlbuminService {
     return result;
   }
 
-  async getListeningList(offset = 0, limit = 20): Promise<any> {
+  async getListeningList(offset = 0, limit = 20): Promise<UserAlbumsResponse> {
     const params = new URLSearchParams();
     if (offset) {
       params.set('offset', offset.toString());
@@ -151,7 +138,7 @@ export class AlbuminService {
 
     const url = this.getUrl(`/api/me/listening-list?${params}`);
 
-    return this.http.get(url, httpOptions).toPromise();
+    return this.http.get<UserAlbumsResponse>(url, httpOptions).toPromise();
   }
 
   async addToListeningList(albumSpotifyId: string) {
@@ -175,7 +162,7 @@ export class AlbuminService {
     return result;
   }
 
-  searchAlbums(keywords: string, offset = 0, limit = 20): Promise<any> {
+  searchAlbums(keywords: string, offset = 0, limit = 20): Promise<UserAlbumsResponse> {
     const params = new URLSearchParams();
     if (keywords) {
       params.set('q', keywords);
@@ -189,16 +176,16 @@ export class AlbuminService {
 
     const url = this.getUrl(`/api/me/album/search?${params}`);
 
-    return this.http.get(url, httpOptions).toPromise();
+    return this.http.get<UserAlbumsResponse>(url, httpOptions).toPromise();
   }
 
-  searchArtists(keywords: string): Promise<any> {
-    const params = new URLSearchParams();
-    if (keywords) {
-      params.set('q', keywords);
-    }
-    const url = this.getUrl(`/api/me/artist/search?${params}`);
+  // searchArtists(keywords: string): Promise<SearchArtistResponse> {
+  //   const params = new URLSearchParams();
+  //   if (keywords) {
+  //     params.set('q', keywords);
+  //   }
+  //   const url = this.getUrl(`/api/me/artist/search?${params}`);
 
-    return this.http.get(url, httpOptions).toPromise();
-  }
+  //   return this.http.get<SearchArtistResponse>(url, httpOptions).toPromise();
+  // }
 }

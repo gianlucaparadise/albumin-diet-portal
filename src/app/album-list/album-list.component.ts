@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlbuminService } from '../albumin.service';
 import { Subscription } from 'rxjs';
 import { NavigationService } from '../services/navigation/navigation.service';
+import { TaggedAlbum } from 'albumin-diet-types';
 
 @Component({
   selector: 'app-album-list',
@@ -13,7 +14,7 @@ export class AlbumListComponent implements OnInit, OnDestroy {
 
   tags: string[] = [];
   showUntagged = false;
-  albums = [];
+  albums: TaggedAlbum[] = [];
   queryParamsSub: Subscription;
 
   scrollContainerSelector = '.mat-sidenav-content';
@@ -40,7 +41,7 @@ export class AlbumListComponent implements OnInit, OnDestroy {
     this.queryParamsSub.unsubscribe();
   }
 
-  async getAlbums(tags: any, showUntagged: boolean) {
+  async getAlbums(tags: string[], showUntagged: boolean) {
     try {
       const response = await this.albuminService.getAlbums(tags, showUntagged);
       this.albums = response.data;

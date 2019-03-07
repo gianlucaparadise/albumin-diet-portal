@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlbuminService } from '../albumin.service';
 import { NavigationService } from '../services/navigation/navigation.service';
+import { UserAlbum } from 'albumin-diet-types';
 
 @Component({
   selector: 'app-listening-list',
@@ -9,7 +10,7 @@ import { NavigationService } from '../services/navigation/navigation.service';
 })
 export class ListeningListComponent implements OnInit {
 
-  albums = [];
+  albums: UserAlbum[] = [];
 
   scrollContainerSelector = '.mat-sidenav-content';
 

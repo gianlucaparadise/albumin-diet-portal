@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatChipInputEvent } from '@angular/material';
 import { AlbuminService } from '../albumin.service';
 import { NavigationService } from '../services/navigation/navigation.service';
+import { AlbumObjectFull } from 'spotify-web-api-node-typings';
+import { ITag } from 'albumin-diet-types';
 
 @Component({
   selector: 'app-album-detail',
@@ -15,8 +17,8 @@ export class AlbumDetailComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   albumId: string;
-  album: any;
-  tags = [];
+  album: AlbumObjectFull;
+  tags: ITag[] = [];
   isSavedAlbum: boolean;
   isInListeningList: boolean;
 
@@ -56,7 +58,8 @@ export class AlbumDetailComponent implements OnInit {
     const value = event.value;
 
     if ((value || '').trim()) {
-      const tag = { name: value.trim() };
+      // FIXME: addTag() should return the added tag to avoid the empty uniqueId
+      const tag: ITag = { name: value.trim(), uniqueId: '' };
       this.tags.push(tag);
 
       const hasAdded = await this.addTag(value);
@@ -84,7 +87,7 @@ export class AlbumDetailComponent implements OnInit {
     }
   }
 
-  async remove(tag: any) {
+  async remove(tag: ITag) {
     const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
@@ -93,7 +96,7 @@ export class AlbumDetailComponent implements OnInit {
     }
   }
 
-  async removeTag(tag: any) {
+  async removeTag(tag: ITag) {
     try {
       const response = await this.albuminService.deleteTagFromAlbum(tag.name, this.albumId);
 

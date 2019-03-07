@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlbuminService } from '../albumin.service';
 import { NavigationService } from '../services/navigation/navigation.service';
+import { UserAlbum } from 'albumin-diet-types';
 
 @Component({
   selector: 'app-search',
@@ -19,7 +20,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   scrollContainerSelector = '.mat-sidenav-content';
 
-  albums: any[];
+  albums: UserAlbum[];
 
   constructor(
     private navigation: NavigationService,

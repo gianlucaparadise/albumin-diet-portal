@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AlbuminService } from '../albumin.service';
-import { Tag, UntaggedName as UNTAGGED_NAME } from '../models/Tag';
 import { MatChip, MatChipList } from '@angular/material';
+import { ITag } from 'albumin-diet-types';
+
+const UNTAGGED_NAME = 'Untagged';
 
 @Component({
   selector: 'app-tag-list',
@@ -13,7 +15,7 @@ import { MatChip, MatChipList } from '@angular/material';
 export class TagListComponent implements OnInit {
 
   @ViewChild('tagList') tagList: MatChipList;
-  tags: Tag[] = [];
+  tags: ITag[] = [];
 
   constructor(
     private albuminService: AlbuminService,
@@ -28,14 +30,14 @@ export class TagListComponent implements OnInit {
     this.albuminService.getTags()
       .subscribe(allTags => {
         if (allTags && allTags.length > 0) {
-          const untaggedTag: Tag = { name: UNTAGGED_NAME, untaggedTag: true };
+          const untaggedTag: ITag = { name: UNTAGGED_NAME, uniqueId: 'untagged' };
           allTags.unshift(untaggedTag);
         }
         this.tags = allTags;
       });
   }
 
-  onTagClick(tag: Tag, chip: MatChip): void {
+  onTagClick(tag: ITag, chip: MatChip): void {
     // tag.selected = !tag.selected;
     chip.toggleSelected();
     this.onChange();
@@ -45,7 +47,7 @@ export class TagListComponent implements OnInit {
     const selectedChip = <MatChip>this.tagList.selected;
 
     let showUntagged = false;
-    const selectedTagNames = [];
+    const selectedTagNames: string[] = [];
     if (selectedChip) {
       const name = (<string>selectedChip.value).trim();
 
