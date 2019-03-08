@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlbuminService } from '../services/albumin/albumin.service';
+import { AlbuminService } from '../../services/albumin/albumin.service';
 
 @Component({
   selector: 'app-album-card',

@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlbuminService } from '../services/albumin/albumin.service';
-import { NavigationService } from '../services/navigation/navigation.service';
+import { AlbuminService } from '../../services/albumin/albumin.service';
+import { NavigationService } from '../../services/navigation/navigation.service';
 import { UserAlbum } from 'albumin-diet-types';
 
 @Component({

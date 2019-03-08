@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AlbumListComponent } from './album-list/album-list.component';
-import { AlbumDetailComponent } from './album-detail/album-detail.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { AlbumListComponent } from './components/album-list/album-list.component';
+import { AlbumDetailComponent } from './components/album-detail/album-detail.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 import { AnonymousGuard } from './guards/anonymous.guard';
 import { AuthGuard } from './guards/auth.guard';
-import { SearchComponent } from './search/search.component';
-import { ListeningListComponent } from './listening-list/listening-list.component';
+import { SearchComponent } from './components/search/search.component';
+import { ListeningListComponent } from './components/listening-list/listening-list.component';
 import { RootGuard } from './guards/root.guard';
 
 const routes: Routes = [

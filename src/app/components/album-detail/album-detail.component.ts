@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ActivatedRoute } from '@angular/router';
 import { MatChipInputEvent } from '@angular/material';
-import { AlbuminService } from '../services/albumin/albumin.service';
-import { NavigationService } from '../services/navigation/navigation.service';
+import { AlbuminService } from '../../services/albumin/albumin.service';
+import { NavigationService } from '../../services/navigation/navigation.service';
 import { AlbumObjectFull } from 'spotify-web-api-node-typings';
 import { ITag } from 'albumin-diet-types';
 

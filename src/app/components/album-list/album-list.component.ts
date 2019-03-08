@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlbuminService } from '../services/albumin/albumin.service';
+import { AlbuminService } from '../../services/albumin/albumin.service';
 import { Subscription } from 'rxjs';
-import { NavigationService } from '../services/navigation/navigation.service';
+import { NavigationService } from '../../services/navigation/navigation.service';
 import { TaggedAlbum } from 'albumin-diet-types';
 
 @Component({
