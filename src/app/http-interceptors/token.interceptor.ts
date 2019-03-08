@@ -7,7 +7,7 @@ import {
   HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth/auth.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

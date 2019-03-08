@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlbuminService } from '../albumin.service';
+import { AlbuminService } from '../services/albumin/albumin.service';
 import { MatChip, MatChipList } from '@angular/material';
 import { ITag } from 'albumin-diet-types';
 

@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of, BehaviorSubject } from 'rxjs';
 
-import { environment } from '../environments/environment';
-import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../auth/auth.service';
 import {
   GetProfileResponse, GetMyTagsResponse, GetMyAlbumsResponse,
   GetAlbumResponse, UserAlbumsResponse, ITag

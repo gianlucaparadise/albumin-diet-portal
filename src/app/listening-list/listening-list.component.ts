@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlbuminService } from '../albumin.service';
+import { AlbuminService } from '../services/albumin/albumin.service';
 import { NavigationService } from '../services/navigation/navigation.service';
 import { UserAlbum } from 'albumin-diet-types';
 
