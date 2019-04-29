@@ -72,7 +72,10 @@ export class AuthService {
    */
   login() {
     const ENGINE_BASE_URL = environment.engineBaseUrl;
-    const BASE_URL = environment.baseUrl;
+
+    const parsedUrl = new URL(window.location.href);
+    const BASE_URL = parsedUrl.origin;
+
     document.location.href = `${ENGINE_BASE_URL}/auth/spotify?callback=${BASE_URL}`;
   }
 
