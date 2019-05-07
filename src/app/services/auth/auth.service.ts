@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { UrlFactoryService } from '../url-factory/url-factory.service';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
@@ -13,7 +13,7 @@ export class AuthService {
 
   isLoggedIn = new BehaviorSubject(false);
 
-  constructor() {
+  constructor(private urlFactory: UrlFactoryService) {
     this.checkIsLoggedIn();
   }
 
@@ -71,12 +71,10 @@ export class AuthService {
    * This performs a redirect
    */
   login() {
-    const ENGINE_BASE_URL = environment.engineBaseUrl;
-
     const parsedUrl = new URL(window.location.href);
     const BASE_URL = parsedUrl.origin;
 
-    document.location.href = `${ENGINE_BASE_URL}/auth/spotify?callback=${BASE_URL}`;
+    document.location.href = this.urlFactory.getUrl('login', BASE_URL);
   }
 
   logout() {

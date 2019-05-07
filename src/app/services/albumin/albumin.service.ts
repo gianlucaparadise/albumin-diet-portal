@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of, BehaviorSubject } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
+import { UrlFactoryService } from '../url-factory/url-factory.service';
 import { AuthService } from '../auth/auth.service';
 import {
   GetProfileResponse, GetMyTagsResponse, GetMyAlbumsResponse,
@@ -21,17 +21,11 @@ export class AlbuminService {
 
   private allTags = new BehaviorSubject<ITag[]>([]);
 
-  constructor(private http: HttpClient, private auth: AuthService) { }
-
-  // todo: use a url provider
-  private getUrl(endpoint: string): string {
-    const engineBaseUrl = environment.engineBaseUrl;
-    return engineBaseUrl + endpoint;
-  }
+  constructor(private http: HttpClient, private auth: AuthService, private urlFactory: UrlFactoryService) { }
 
   async getProfile(): Promise<GetProfileResponse> {
     try {
-      const url = this.getUrl('/api/me/profile');
+      const url = this.urlFactory.getUrl('profile');
       const response = <GetProfileResponse>await this.http.get(url, httpOptions).toPromise();
       return response;
 
@@ -48,7 +42,7 @@ export class AlbuminService {
 
   private async refreshTags() {
     try {
-      const url = this.getUrl(`/api/me/tag`);
+      const url = this.urlFactory.getUrl(`tag`);
 
       const response = <GetMyTagsResponse>await this.http.get(url, httpOptions).toPromise();
       this.allTags.next(response.data);
@@ -73,7 +67,7 @@ export class AlbuminService {
       params.set('limit', limit.toString());
     }
 
-    const url = this.getUrl(`/api/me/album?${params}`);
+    const url = this.urlFactory.getUrl('albums', params);
 
     const token = this.auth.token;
     httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
@@ -82,13 +76,13 @@ export class AlbuminService {
   }
 
   getAlbum(spotifyAlbumId: string): Observable<GetAlbumResponse> {
-    const url = this.getUrl(`/api/me/album/${spotifyAlbumId}`);
+    const url = this.urlFactory.getUrl('album', spotifyAlbumId);
 
     return this.http.get<GetAlbumResponse>(url, httpOptions);
   }
 
   async saveAlbum(spotifyAlbumId: string) {
-    const url = this.getUrl(`/api/me/album`);
+    const url = this.urlFactory.getUrl(`album`);
 
     const requestBody = { album: { spotifyId: spotifyAlbumId } };
 
@@ -97,7 +91,7 @@ export class AlbuminService {
   }
 
   async unsaveAlbum(spotifyAlbumId: string) {
-    const url = this.getUrl(`/api/me/album`);
+    const url = this.urlFactory.getUrl(`album`);
 
     const requestBody = { album: { spotifyId: spotifyAlbumId } };
     httpOptions['body'] = requestBody;
@@ -107,7 +101,7 @@ export class AlbuminService {
   }
 
   async addTagToAlbum(tag: string, albumSpotifyId: string) {
-    const url = this.getUrl(`/api/me/tag`);
+    const url = this.urlFactory.getUrl(`tag`);
 
     const requestBody = { tag: { name: tag }, album: { spotifyId: albumSpotifyId } };
 
@@ -117,7 +111,7 @@ export class AlbuminService {
   }
 
   async deleteTagFromAlbum(tag: any, albumSpotifyId: string) {
-    const url = this.getUrl(`/api/me/tag`);
+    const url = this.urlFactory.getUrl(`tag`);
 
     const requestBody = { tag: { name: tag }, album: { spotifyId: albumSpotifyId } };
     httpOptions['body'] = requestBody;
@@ -136,13 +130,13 @@ export class AlbuminService {
       params.set('limit', limit.toString());
     }
 
-    const url = this.getUrl(`/api/me/listening-list?${params}`);
+    const url = this.urlFactory.getUrl('listening-list', params);
 
     return this.http.get<UserAlbumsResponse>(url, httpOptions).toPromise();
   }
 
   async addToListeningList(albumSpotifyId: string) {
-    const url = this.getUrl(`/api/me/listening-list`);
+    const url = this.urlFactory.getUrl(`listening-list`);
 
     const requestBody = { album: { spotifyId: albumSpotifyId } };
 
@@ -152,7 +146,7 @@ export class AlbuminService {
   }
 
   async deleteFromListeningList(albumSpotifyId: string) {
-    const url = this.getUrl(`/api/me/listening-list`);
+    const url = this.urlFactory.getUrl(`listening-list`);
 
     const requestBody = { album: { spotifyId: albumSpotifyId } };
     httpOptions['body'] = requestBody;
@@ -174,7 +168,7 @@ export class AlbuminService {
       params.set('limit', limit.toString());
     }
 
-    const url = this.getUrl(`/api/me/album/search?${params}`);
+    const url = this.urlFactory.getUrl('search', params);
 
     return this.http.get<UserAlbumsResponse>(url, httpOptions).toPromise();
   }

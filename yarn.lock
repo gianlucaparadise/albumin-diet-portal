@@ -625,12 +625,12 @@ ajv@^6.1.0, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-albumin-diet-types@^0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/albumin-diet-types/-/albumin-diet-types-0.0.14.tgz#2ad68bccf031b26ec696d30500dab440efed2cc9"
-  integrity sha512-KuJCRbYxPpTiESJ3soaAfUdZbY07BEW41DnwUEmOvSFYOAGMumlMc33xs0UcQscUpUshKG84GtqOJC6aJFlOpw==
+albumin-diet-types@^0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/albumin-diet-types/-/albumin-diet-types-0.0.17.tgz#45d3011a13fac383ac49401953be052b05b690f5"
+  integrity sha512-SWlHrVqbWTZbedz4g2dwVt8EjAbmS9wAlUVaEwWnvmAQZ3PyUBnuPu6cjiDYrjT0LNDAuugmXeY+zke2RhDPoQ==
   dependencies:
-    spotify-web-api-node-typings "^0.0.5"
+    spotify-web-api-node-typings "^0.0.6"
 
 amdefine@>=0.0.4:
   version "1.0.1"
@@ -6646,10 +6646,10 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
-spotify-web-api-node-typings@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/spotify-web-api-node-typings/-/spotify-web-api-node-typings-0.0.5.tgz#b583b74e971cd3cd227cc48ce6f23fc7488e1368"
-  integrity sha512-Er5048SisHvhmQhPOsHeB3mGYP6KT2Ci2+CS+Edv1XOWesSScdb3nQiz9iuM5dv2qj24ADK+ydQDDOgsiVKXFw==
+spotify-web-api-node-typings@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/spotify-web-api-node-typings/-/spotify-web-api-node-typings-0.0.6.tgz#c3f0df8a61217d4db104182b7a2af787faef13a6"
+  integrity sha512-2m1zso+iK/VX6yhd9m/7TRjsCjl1zCIXaXJSzVTcXB9cC+hvzAVeMpHvaTkrqrLSi2VnM6/8GQ2Wg9qyS0Cr0g==
 
 sprintf-js@^1.1.1:
   version "1.1.2"
@@ -7262,6 +7262,11 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+urlfactory-js@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/urlfactory-js/-/urlfactory-js-1.0.6.tgz#fec400249650f225abe1f490c71115fae42e91f1"
+  integrity sha512-PZMOUeCCt/avzDZfNisY8u2sIH/uTRAeOjHmuZdZY4LkNl5NdixFKHeIxKWSW6ungP64VnqU6HHkD7bpsv32Sg==
 
 use@^3.1.0:
   version "3.1.1"
