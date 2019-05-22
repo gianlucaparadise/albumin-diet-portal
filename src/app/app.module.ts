@@ -30,6 +30,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TracksDurationPipe } from './pipes/tracksDuration/tracksDuration.pipe';
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { ToggleIconButtonComponent } from './components/toggle-icon-button/toggle-icon-button.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './store/effetcs/app.effects';
 
 @NgModule({
   declarations: [
@@ -64,7 +68,9 @@ import { ToggleIconButtonComponent } from './components/toggle-icon-button/toggl
     MatToolbarModule,
     MatInputModule,
     MatTooltipModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([AppEffects])
   ],
   providers: [
     AuthGuard,
