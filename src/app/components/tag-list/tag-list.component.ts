@@ -1,9 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, /*ChangeDetectionStrategy*/ } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlbuminService } from '../../services/albumin/albumin.service';
 import { MatChip, MatChipList } from '@angular/material';
 import { ITag } from 'albumin-diet-types';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
+import { TagsLoad } from 'src/app/store/actions/tag.actions';
+import { selectors } from 'src/app/store/selectors';
 
 const UNTAGGED_NAME = 'Untagged';
 
@@ -11,30 +15,20 @@ const UNTAGGED_NAME = 'Untagged';
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TagListComponent implements OnInit {
 
   @ViewChild('tagList') tagList: MatChipList;
-  tags: ITag[] = [];
+  tags$: Observable<ITag[]> = this.store.select(selectors.tags);
 
   constructor(
-    private albuminService: AlbuminService,
-    private router: Router
+    private store: Store<AppState>,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.getTags();
-  }
-
-  getTags(): void {
-    this.albuminService.getTags()
-      .subscribe(allTags => {
-        if (allTags && allTags.length > 0) {
-          const untaggedTag: ITag = { name: UNTAGGED_NAME, uniqueId: 'untagged' };
-          allTags.unshift(untaggedTag);
-        }
-        this.tags = allTags;
-      });
+    this.store.dispatch(new TagsLoad());
   }
 
   onTagClick(tag: ITag, chip: MatChip): void {

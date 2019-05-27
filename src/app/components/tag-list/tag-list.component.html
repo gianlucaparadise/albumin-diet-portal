@@ -1,7 +1,7 @@
 <div class="tag-list-container">
   <label class="mat-subheading-2">Tags</label>
   <mat-chip-list #tagList class="mat-chip-list-stacked" aria-orientation="vertical" (change)="onChange()">
-    <mat-chip #chip="matChip" *ngFor="let tag of tags" (click)="onTagClick(tag, chip)" [selected]="tag.selected"
+    <mat-chip #chip="matChip" *ngFor="let tag of tags$ | async" (click)="onTagClick(tag, chip)" [selected]="tag.selected"
       [ngClass]="{'untagged': tag.untaggedTag}">
       {{tag.name}}
     </mat-chip>

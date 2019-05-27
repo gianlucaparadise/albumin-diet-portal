@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { UrlFactoryService } from '../url-factory/url-factory.service';
 import { AuthService } from '../auth/auth.service';
@@ -9,6 +9,9 @@ import {
   GetProfileResponse, GetMyTagsResponse, GetMyAlbumsResponse,
   GetAlbumResponse, UserAlbumsResponse, ITag
 } from 'albumin-diet-types';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
+import { TagsLoad } from 'src/app/store/actions/tag.actions';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,9 +22,12 @@ const httpOptions = {
 })
 export class AlbuminService {
 
-  private allTags = new BehaviorSubject<ITag[]>([]);
-
-  constructor(private http: HttpClient, private auth: AuthService, private urlFactory: UrlFactoryService) { }
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService,
+    private urlFactory: UrlFactoryService,
+    private store: Store<AppState>
+  ) { }
 
   async getProfile(): Promise<GetProfileResponse> {
     try {
@@ -35,21 +41,13 @@ export class AlbuminService {
     }
   }
 
-  getTags(): BehaviorSubject<ITag[]> {
-    this.refreshTags();
-    return this.allTags;
+  private refreshTags() {
+    this.store.dispatch(new TagsLoad());
   }
 
-  private async refreshTags() {
-    try {
+  public getTags() {
       const url = this.urlFactory.getUrl(`tag`);
-
-      const response = <GetMyTagsResponse>await this.http.get(url, httpOptions).toPromise();
-      this.allTags.next(response.data);
-    } catch (error) {
-      console.error('Error while refreshing the tag: ');
-      console.error(error);
-    }
+      return this.http.get<GetMyTagsResponse>(url, httpOptions);
   }
 
   getAlbums(tags: string[] = null, showUntagged: boolean, offset = 0, limit = 20): Promise<GetMyAlbumsResponse> {
@@ -141,7 +139,7 @@ export class AlbuminService {
     const requestBody = { album: { spotifyId: albumSpotifyId } };
 
     const result = await this.http.post(url, requestBody, httpOptions).toPromise();
-    this.refreshTags();
+    // this.refreshTags();
     return result;
   }
 
@@ -152,7 +150,7 @@ export class AlbuminService {
     httpOptions['body'] = requestBody;
 
     const result = await this.http.delete(url, httpOptions).toPromise();
-    this.refreshTags();
+    // this.refreshTags();
     return result;
   }
 

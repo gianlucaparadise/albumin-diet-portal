@@ -33,7 +33,7 @@ import { ToggleIconButtonComponent } from './components/toggle-icon-button/toggl
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './store/effetcs/app.effects';
+import { effects } from './store/effetcs';
 
 @NgModule({
   declarations: [
@@ -70,7 +70,7 @@ import { AppEffects } from './store/effetcs/app.effects';
     MatTooltipModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot(effects)
   ],
   providers: [
     AuthGuard,
