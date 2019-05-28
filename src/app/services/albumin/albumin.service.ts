@@ -154,7 +154,7 @@ export class AlbuminService {
     return result;
   }
 
-  searchAlbums(keywords: string, offset = 0, limit = 20): Promise<UserAlbumsResponse> {
+  searchAlbums(keywords: string, offset = 0, limit = 20): Observable<UserAlbumsResponse> {
     const params = new URLSearchParams();
     if (keywords) {
       params.set('q', keywords);
@@ -168,7 +168,7 @@ export class AlbuminService {
 
     const url = this.urlFactory.getUrl('search', params);
 
-    return this.http.get<UserAlbumsResponse>(url, httpOptions).toPromise();
+    return this.http.get<UserAlbumsResponse>(url, httpOptions);
   }
 
   // searchArtists(keywords: string): Promise<SearchArtistResponse> {

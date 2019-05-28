@@ -1,11 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subscription, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlbuminService } from '../../services/albumin/albumin.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { UserAlbum } from 'albumin-diet-types';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
+import { selectors } from 'src/app/store/selectors';
+import { SearchLoad } from 'src/app/store/actions/search.action';
 
 @Component({
   selector: 'app-search',
@@ -20,13 +23,13 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   scrollContainerSelector = '.mat-sidenav-content';
 
-  albums: UserAlbum[];
+  albumDescriptors$: Observable<UserAlbum[]> = this.store.select(selectors.search);
 
   constructor(
+    private store: Store<AppState>,
     private navigation: NavigationService,
     private router: Router,
-    private route: ActivatedRoute,
-    private albuminService: AlbuminService
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -38,7 +41,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     ).subscribe(newValue => {
       this.searchFieldValue = newValue;
       this.updateQueryParam();
-      console.log(this.searchFieldValue);
 
       this.search();
     });
@@ -81,33 +83,26 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.searchAlbums();
   }
 
-  async searchAlbums() {
-    try {
-      const response = await this.albuminService.searchAlbums(this.searchFieldValue);
-      this.albums = response.data;
-      console.log('albums:');
-      console.log(this.albums);
-
-    } catch (error) {
-      console.log(error);
-    }
+  searchAlbums() {
+    this.store.dispatch(new SearchLoad({ keywords: this.searchFieldValue }));
   }
 
   /**
    * Here I append the next page
    */
   async onPageFinishing() {
-    try {
-      const offset = this.albums.length;
-      const response = await this.albuminService.searchAlbums(this.searchFieldValue, offset);
-      this.albums.push(...response.data);
+    console.log('onPageFinishing');
+    // try {
+    //   const offset = this.albums.length;
+    //   const response = await this.albuminService.searchAlbums(this.searchFieldValue, offset);
+    //   this.albums.push(...response.data);
 
-      console.log('added albums: ');
-      console.log(response.data);
+    //   console.log('added albums: ');
+    //   console.log(response.data);
 
-    } catch (error) {
-      console.log('error while loading next page: ');
-      console.log(error);
-    }
+    // } catch (error) {
+    //   console.log('error while loading next page: ');
+    //   console.log(error);
+    // }
   }
 }
