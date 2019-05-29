@@ -4,8 +4,14 @@ import { UserAlbum } from 'albumin-diet-types';
 export enum SearchActionTypes {
   Error = '[Search API] Search API Error',
 
+  Clear = '[Search Page] Clear Search',
+
   Load = '[Search Page] Load Search',
   LoadSuccess = '[Search API] Search Loaded Success',
+}
+
+export class SearchClear implements Action {
+  readonly type = SearchActionTypes.Clear;
 }
 
 export class SearchLoad implements Action {
@@ -28,4 +34,5 @@ export class SearchError implements Action {
 
 export type SearchActions =
   SearchError |
+  SearchClear |
   SearchLoad | SearchLoadSuccess;

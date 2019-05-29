@@ -12,6 +12,9 @@ export const initialState: SearchState = {
 
 export function searchReducer(state = initialState, action: SearchActions): SearchState {
   switch (action.type) {
+    case SearchActionTypes.Clear:
+      return initialState;
+
     case SearchActionTypes.LoadSuccess:
       return {
         albumDescriptors: action.payload.albumDescriptors

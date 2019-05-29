@@ -8,7 +8,7 @@ import { UserAlbum } from 'albumin-diet-types';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { selectors } from 'src/app/store/selectors';
-import { SearchLoad } from 'src/app/store/actions/search.action';
+import { SearchLoad, SearchClear } from 'src/app/store/actions/search.action';
 
 @Component({
   selector: 'app-search',
@@ -76,7 +76,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   async search() {
     if (this.searchFieldValue.trim() === '') {
-      // todo: clear results
+      this.store.dispatch(new SearchClear());
       return;
     }
 
