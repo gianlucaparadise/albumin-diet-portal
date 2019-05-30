@@ -8,6 +8,9 @@ export enum SearchActionTypes {
 
   Load = '[Search Page] Load Search',
   LoadSuccess = '[Search API] Search Loaded Success',
+
+  LoadNext = '[Search Page] Load Search Next Page',
+  LoadNextSuccess = '[Search API] Search Next Page Loaded Success',
 }
 
 export class SearchClear implements Action {
@@ -17,13 +20,30 @@ export class SearchClear implements Action {
 export class SearchLoad implements Action {
   readonly type = SearchActionTypes.Load;
 
-  constructor(readonly payload: { keywords: string }) { }
+  constructor(readonly payload: {
+    keywords: string,
+  }) { }
 }
 
 export class SearchLoadSuccess implements Action {
   readonly type = SearchActionTypes.LoadSuccess;
 
-  constructor(readonly payload: { albumDescriptors: UserAlbum[] }) { }
+  constructor(readonly payload: {
+    keywords: string,
+    albumDescriptors: UserAlbum[]
+  }) { }
+}
+
+export class SearchLoadNext implements Action {
+  readonly type = SearchActionTypes.LoadNext;
+}
+
+export class SearchLoadNextSuccess implements Action {
+  readonly type = SearchActionTypes.LoadNextSuccess;
+
+  constructor(readonly payload: {
+    albumDescriptors: UserAlbum[]
+  }) { }
 }
 
 export class SearchError implements Action {
@@ -35,4 +55,5 @@ export class SearchError implements Action {
 export type SearchActions =
   SearchError |
   SearchClear |
-  SearchLoad | SearchLoadSuccess;
+  SearchLoad | SearchLoadSuccess |
+  SearchLoadNext | SearchLoadNextSuccess;
