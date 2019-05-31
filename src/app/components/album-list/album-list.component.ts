@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlbuminService } from '../../services/albumin/albumin.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { TaggedAlbum } from 'albumin-diet-types';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
+import { selectors } from 'src/app/store/selectors';
+import { MyAlbumsLoad, MyAlbumsLoadNext } from 'src/app/store/actions/my-albums.action';
 
 @Component({
   selector: 'app-album-list',
@@ -14,14 +17,14 @@ export class AlbumListComponent implements OnInit, OnDestroy {
 
   tags: string[] = [];
   showUntagged = false;
-  albums: TaggedAlbum[] = [];
+  albumDescriptors$: Observable<TaggedAlbum[]> = this.store.select(selectors.myAlbumDescriptors);
   queryParamsSub: Subscription;
 
   scrollContainerSelector = '.mat-sidenav-content';
 
   constructor(
     private navigation: NavigationService,
-    private albuminService: AlbuminService,
+    private store: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -41,29 +44,15 @@ export class AlbumListComponent implements OnInit, OnDestroy {
     this.queryParamsSub.unsubscribe();
   }
 
-  async getAlbums(tags: string[], showUntagged: boolean) {
-    try {
-      const response = await this.albuminService.getAlbums(tags, showUntagged);
-      this.albums = response.data;
-
-    } catch (error) {
-      console.log('error while getting my albums:');
-      console.log(error);
-    }
+  getAlbums(tags: string[], showUntagged: boolean) {
+    this.store.dispatch(new MyAlbumsLoad({ tags, showUntagged }));
   }
 
   /**
    * Here I append the next page
    */
-  async onPageFinishing() {
-    try {
-      const offset = this.albums.length;
-      const response = await this.albuminService.getAlbums(this.tags, this.showUntagged, offset);
-      this.albums.push(...response.data);
-
-    } catch (error) {
-      console.log('error while loading next page: ');
-      console.log(error);
-    }
+  onPageFinishing() {
+    console.log('onPageFinishing');
+    this.store.dispatch(new MyAlbumsLoadNext());
   }
 }

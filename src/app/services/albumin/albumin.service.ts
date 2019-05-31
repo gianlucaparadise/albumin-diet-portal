@@ -50,7 +50,7 @@ export class AlbuminService {
       return this.http.get<GetMyTagsResponse>(url, httpOptions);
   }
 
-  getAlbums(tags: string[] = null, showUntagged: boolean, offset = 0, limit = 20): Promise<GetMyAlbumsResponse> {
+  getAlbums(tags: string[] = null, showUntagged: boolean, offset = 0, limit = 20): Observable<GetMyAlbumsResponse> {
     const params = new URLSearchParams();
     if (tags) {
       params.set('tags', JSON.stringify(tags));
@@ -69,7 +69,7 @@ export class AlbuminService {
 
     const token = this.auth.token;
     httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
-    const result = this.http.get<GetMyAlbumsResponse>(url, httpOptions).toPromise();
+    const result = this.http.get<GetMyAlbumsResponse>(url, httpOptions);
     return result;
   }
 
