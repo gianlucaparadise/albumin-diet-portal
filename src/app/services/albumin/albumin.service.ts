@@ -119,7 +119,7 @@ export class AlbuminService {
     return result;
   }
 
-  async getListeningList(offset = 0, limit = 20): Promise<UserAlbumsResponse> {
+  getListeningList(offset = 0, limit = 20): Observable<UserAlbumsResponse> {
     const params = new URLSearchParams();
     if (offset) {
       params.set('offset', offset.toString());
@@ -130,7 +130,7 @@ export class AlbuminService {
 
     const url = this.urlFactory.getUrl('listening-list', params);
 
-    return this.http.get<UserAlbumsResponse>(url, httpOptions).toPromise();
+    return this.http.get<UserAlbumsResponse>(url, httpOptions);
   }
 
   async addToListeningList(albumSpotifyId: string) {

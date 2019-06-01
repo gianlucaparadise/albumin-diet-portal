@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlbuminService } from '../../services/albumin/albumin.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { UserAlbum } from 'albumin-diet-types';
+import { AppState } from 'src/app/store/reducers';
+import { Store } from '@ngrx/store';
+import { ListeningListLoad, ListeningListLoadNext } from 'src/app/store/actions/listening-list.action';
+import { selectors } from 'src/app/store/selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listening-list',
@@ -10,43 +14,29 @@ import { UserAlbum } from 'albumin-diet-types';
 })
 export class ListeningListComponent implements OnInit {
 
-  albums: UserAlbum[] = [];
+  albumDescriptors$: Observable<UserAlbum[]> = this.store.select(selectors.listeningListAlbumDescriptors);
 
   scrollContainerSelector = '.mat-sidenav-content';
 
   constructor(
     private navigation: NavigationService,
-    private albuminService: AlbuminService
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
     this.navigation.setTitle('My Listening List');
-    this.getAlbums();
+    this.getListeningList();
   }
 
-  async getAlbums() {
-    try {
-      const response = await this.albuminService.getListeningList();
-      this.albums = response.data;
-
-    } catch (error) {
-      console.log('Error while getting listening list');
-      console.log(error);
-    }
+  getListeningList() {
+    this.store.dispatch(new ListeningListLoad());
   }
 
   /**
    * Here I append the next page
    */
   async onPageFinishing() {
-    try {
-      const offset = this.albums.length;
-      const response = await this.albuminService.getListeningList(offset);
-      this.albums.push(...response.data);
-
-    } catch (error) {
-      console.log('error while loading next page: ');
-      console.log(error);
-    }
+    console.log('onPageFinishing');
+    this.store.dispatch(new ListeningListLoadNext());
   }
 }
