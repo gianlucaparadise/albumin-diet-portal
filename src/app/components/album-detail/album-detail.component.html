@@ -1,4 +1,4 @@
-<div class="album-detail-container" *ngIf="album">
+<div class="album-detail-container" *ngIf="albumDetailFull$ | async as album">
   <div class="album-info-container">
     <img src="{{album.images[0].url}}" alt="{{album.name}}" class="album-image">
     <label class="mat-h1">{{album.name}}</label>

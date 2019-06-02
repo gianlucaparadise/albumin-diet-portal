@@ -1,26 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ActivatedRoute } from '@angular/router';
 import { MatChipInputEvent } from '@angular/material';
 import { AlbuminService } from '../../services/albumin/albumin.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { AlbumObjectFull } from 'spotify-web-api-node-typings';
 import { ITag } from 'albumin-diet-types';
+import { AppState } from 'src/app/store/reducers';
+import { Store } from '@ngrx/store';
+import { selectors } from 'src/app/store/selectors';
+import { AlbumDetailLoad } from 'src/app/store/actions/album-detail.action';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-album-detail',
   templateUrl: './album-detail.component.html',
   styleUrls: ['./album-detail.component.scss']
 })
-export class AlbumDetailComponent implements OnInit {
+export class AlbumDetailComponent implements OnInit, OnDestroy {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  private subscriptions = new Subscription();
+
   albumId: string;
-  album: AlbumObjectFull;
   tags: ITag[] = [];
   isSavedAlbum: boolean;
   isInListeningList: boolean;
+
+  albumAppUri: string;
+  albumWebUri: string;
 
   canToggleListeningList = true;
   canToggleSave = true;
@@ -28,6 +37,7 @@ export class AlbumDetailComponent implements OnInit {
   constructor(
     private navigation: NavigationService,
     private route: ActivatedRoute,
+    private store: Store<AppState>,
     private albuminService: AlbuminService
   ) { }
 
@@ -36,20 +46,24 @@ export class AlbumDetailComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.albumId = params['albumId'];
 
-      this.getAlbum(this.albumId);
-    });
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   getAlbum(albumId: string) {
-    this.albuminService.getAlbum(albumId)
-      .subscribe(response => {
-        this.album = response.data.album;
-        this.tags = response.data.tags;
-        this.isSavedAlbum = response.data.isSavedAlbum;
-        this.isInListeningList = response.data.isInListeningList;
+    this.store.dispatch(new AlbumDetailLoad({ albumId }));
 
-        this.navigation.setTitle(this.album.name);
-      });
+    this.subscriptions.add(this.albumDetail$.pipe(filter(result => !!result))
+      .subscribe(data => {
+        this.tags = data.tags;
+        this.isSavedAlbum = data.isSavedAlbum;
+        this.isInListeningList = data.isInListeningList;
+
+        this.albumAppUri = data.album.uri;
+        this.albumWebUri = data.album.external_urls.spotify;
+
+        this.navigation.setTitle(data.album.name);
+      }));
   }
 
   //#region Tags
@@ -178,12 +192,12 @@ export class AlbumDetailComponent implements OnInit {
   //#region Play
   playInApp() {
     // this will wake Spotify App because contains a custom schema
-    window.location.href = this.album.uri;
+    window.location.href = this.albumAppUri;
   }
 
   playInWeb() {
     // this opens a new tab
-    window.open(this.album.external_urls.spotify);
+    window.open(this.albumWebUri);
   }
   //#endregion
 }

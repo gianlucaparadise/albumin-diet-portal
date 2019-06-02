@@ -2,6 +2,7 @@ import { selectTags } from './tag.selector';
 import { selectSearchAlbums, selectSearchKeywords, selectSearch } from './search.selector';
 import { selectMyAlbums, selectMyAlbumDescriptors } from './my-albums.selector';
 import { selectListeningList, selectListeningListAlbumDescriptors } from './listening-list.selector';
+import { albumDetailSelectors } from './album-detail.selector';
 
 export const selectors = {
   tags: selectTags,
@@ -15,4 +16,6 @@ export const selectors = {
 
   listeningList: selectListeningList,
   listeningListAlbumDescriptors: selectListeningListAlbumDescriptors,
+
+  ...albumDetailSelectors,
 };
