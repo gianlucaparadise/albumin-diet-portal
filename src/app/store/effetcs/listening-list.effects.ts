@@ -37,7 +37,7 @@ export class ListeningListEffects {
   loadAlbumsNext$ = this.actions$
     .pipe(
       ofType<ListeningListLoadNext>(ListeningListActionTypes.LoadNext),
-      withLatestFrom(this.store$.select(selectors.listeningList)),
+      withLatestFrom(this.store$.select(selectors.listeningListFeature)),
       mergeMap(([action, listeningList]) => (
         this.albuminService.getListeningList(
           listeningList.albumDescriptors.length

@@ -44,7 +44,7 @@ export class MyAlbumsEffects {
   loadAlbumsNext$ = this.actions$
     .pipe(
       ofType<MyAlbumsLoadNext>(MyAlbumsActionTypes.LoadNext),
-      withLatestFrom(this.store$.select(selectors.myAlbums)),
+      withLatestFrom(this.store$.select(selectors.myAlbumsFeature)),
       mergeMap(([action, myAlbums]) => (
         this.albuminService.getAlbums(
           myAlbums.tags,

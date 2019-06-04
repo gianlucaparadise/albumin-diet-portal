@@ -1,13 +1,15 @@
 import { AppState } from '../reducers';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { AlbumDetailState } from '../reducers/album-detail.reducer';
 
-const selectAlbumDetailFeature = (state: AppState) => state.albumDetailFeature;
-const selectAlbumDetail = (state: AppState) => state.albumDetailFeature.albumDescriptor;
-const selectAlbumFull = (state: AppState) => (
-  state.albumDetailFeature.albumDescriptor ? state.albumDetailFeature.albumDescriptor.album : undefined
+const selectFeature = createFeatureSelector<AppState, AlbumDetailState>('albumDetailFeature');
+
+const selectAlbumDetail = createSelector(
+  selectFeature,
+  (state) => state.albumDescriptor
 );
 
 export const albumDetailSelectors = {
-  albumDetailFeature: selectAlbumDetailFeature,
+  albumDetailFeature: selectFeature,
   albumDetail: selectAlbumDetail,
-  albumFull: selectAlbumFull,
 };

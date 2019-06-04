@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   searchFieldValue = '';
   searchFieldControl = new FormControl();
-  searchFieldControlSubscription: Subscription;
+  private subscriptions = new Subscription();
 
   scrollContainerSelector = '.mat-sidenav-content';
 
@@ -37,7 +37,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.navigation.setTitle('Search');
 
     // debounce keystroke events
-    this.searchFieldControlSubscription = this.searchFieldControl.valueChanges.pipe(
+    this.subscriptions.add(this.searchFieldControl.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
     ).subscribe(newValue => {
@@ -45,7 +45,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.updateQueryParam();
 
       this.search();
-    });
+    }));
 
     // FIXME: It seems this breaks pagination
     // this.searchKeywords$
@@ -56,7 +56,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     //     this.searchFieldControl.setValue(keywords);
     //   });
 
-    this.route.queryParams.subscribe(queryParams => {
+    this.subscriptions.add(this.route.queryParams.subscribe(queryParams => {
       const q = queryParams['q'];
       if (!q) { return; }
 
@@ -64,11 +64,11 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.searchFieldControl.setValue(keywords);
 
       console.log(`q: ${queryParams['q']}`);
-    });
+    }));
   }
 
   ngOnDestroy() {
-    this.searchFieldControlSubscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   clear() {

@@ -1,8 +1,15 @@
 import { AppState } from '../reducers';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { TagState } from '../reducers/tag.reducer';
 
-export const selectTags = (state: AppState) => state.tagFeature.tags;
- 
-// export const selectTagCount = createSelector(
-//   selectTag,
-//   (state: TagState) => state.tags
-// );
+const selectFeature = createFeatureSelector<AppState, TagState>('tagFeature');
+
+const selectTags = createSelector(
+  selectFeature,
+  (state: TagState) => state.tags
+);
+
+export const tagsSelector = {
+  tagsFeature: selectFeature,
+  tags: selectTags,
+};

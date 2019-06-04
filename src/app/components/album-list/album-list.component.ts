@@ -15,10 +15,11 @@ import { MyAlbumsLoad, MyAlbumsLoadNext } from 'src/app/store/actions/my-albums.
 })
 export class AlbumListComponent implements OnInit, OnDestroy {
 
+  private subscriptions = new Subscription();
+
   tags: string[] = [];
   showUntagged = false;
   albumDescriptors$: Observable<TaggedAlbum[]> = this.store.select(selectors.myAlbumDescriptors);
-  queryParamsSub: Subscription;
 
   scrollContainerSelector = '.mat-sidenav-content';
 
@@ -31,17 +32,17 @@ export class AlbumListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.navigation.setTitle('My Albums');
-    this.queryParamsSub = this.route
+    this.subscriptions.add(this.route
       .queryParams
       .subscribe(params => {
         this.tags = params['tags'];
         this.showUntagged = params['untagged'] === 'true';
         this.getAlbums(this.tags, this.showUntagged);
-      });
+      }));
   }
 
   ngOnDestroy() {
-    this.queryParamsSub.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   getAlbums(tags: string[], showUntagged: boolean) {

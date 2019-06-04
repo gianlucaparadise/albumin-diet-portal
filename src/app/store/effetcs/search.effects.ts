@@ -38,7 +38,7 @@ export class SearchEffects {
   loadSearchNext$ = this.actions$
     .pipe(
       ofType<SearchLoadNext>(SearchActionTypes.LoadNext),
-      withLatestFrom(this.store$.select(selectors.search)),
+      withLatestFrom(this.store$.select(selectors.searchFeature)),
       mergeMap(([action, search]) => (this.albuminService.searchAlbums(search.keywords, search.albumDescriptors.length))
         .pipe(
           map(response => response.data),
