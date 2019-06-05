@@ -6,7 +6,8 @@ export enum AlbumDetailActionTypes {
 
   Select = '[AlbumDetail Page] Select AlbumDetail',
 
-  Load = '[AlbumDetail Page] Load AlbumDetail',
+  Load = '[AlbumDetail Page] Load AlbumDetail from cached responses',
+  LoadRemote = '[AlbumDetail Page] Load AlbumDetail from remote',
   LoadSuccess = '[AlbumDetail API] AlbumDetail Loaded Success',
 }
 
@@ -20,12 +21,19 @@ export enum AlbumDetailActionTypes {
 //   }) { }
 // }
 
+export type AlbumDetailOrigin = 'none' | 'listening-list' | 'my-albums' | 'search';
+export interface AlbumDetailLoadProps { origin?: AlbumDetailOrigin; albumId: string; }
+
 export class AlbumDetailLoad implements Action {
   readonly type = AlbumDetailActionTypes.Load;
 
-  constructor(readonly payload: {
-    albumId: string
-  }) {}
+  constructor(readonly payload: AlbumDetailLoadProps) {}
+}
+
+export class AlbumDetailLoadFromRemote implements Action {
+  readonly type = AlbumDetailActionTypes.LoadRemote;
+
+  constructor(readonly payload: AlbumDetailLoadProps) {}
 }
 
 export class AlbumDetailLoadSuccess implements Action {

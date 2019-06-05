@@ -4,13 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { MatChipInputEvent } from '@angular/material';
 import { AlbuminService } from '../../services/albumin/albumin.service';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { ITag } from 'albumin-diet-types';
+import { ITag, TaggedAlbum } from 'albumin-diet-types';
 import { AppState } from 'src/app/store/reducers';
 import { Store } from '@ngrx/store';
 import { selectors } from 'src/app/store/selectors';
 import { AlbumDetailLoad } from 'src/app/store/actions/album-detail.action';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { AlbumObjectFull } from 'spotify-web-api-node-typings';
 
 @Component({
   selector: 'app-album-detail',
@@ -22,8 +23,11 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   private subscriptions = new Subscription();
+  albumDetail$ = this.store.select(selectors.albumDetail);
 
-  albumId: string;
+  get albumId() { return this.route.snapshot.params['albumId']; }
+  albumDescriptor: TaggedAlbum;
+  album: AlbumObjectFull;
   tags: ITag[] = [];
   isSavedAlbum: boolean;
   isInListeningList: boolean;
@@ -38,13 +42,41 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
     private navigation: NavigationService,
     private route: ActivatedRoute,
     private store: Store<AppState>,
-    private albuminService: AlbuminService
-  ) { }
+    private albuminService: AlbuminService,
+  ) {
+    //#region Calculating origin
+    // this.router.events.pipe(
+    //   filter(e => e instanceof RoutesRecognized),
+    //   pairwise(),
+    // )
+    //   .subscribe((event: any[]) => {
+    //     const prevRoute = event[0].urlAfterRedirects;
+    //     switch (prevRoute) {
+    //       case '/albums':
+    //         this.origin = 'my-albums';
+    //         break;
+
+    //       case '/listening-list':
+    //         this.origin = 'listening-list';
+    //         break;
+
+    //       case '/search':
+    //         this.origin = 'search';
+    //         break;
+
+    //       default:
+    //         this.origin = 'none';
+    //         break;
+    //     }
+    //     console.log(`${prevRoute} origin: ${this.origin}`);
+    //   });
+    //#endregion
+  }
 
   ngOnInit() {
     this.navigation.setTitle('');
-    this.route.params.subscribe(params => {
-      this.albumId = params['albumId'];
+    this.getAlbum(this.albumId);
+  }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
@@ -55,6 +87,9 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(this.albumDetail$.pipe(filter(result => !!result))
       .subscribe(data => {
+        this.albumDescriptor = data;
+        this.album = data.album;
+
         this.tags = data.tags;
         this.isSavedAlbum = data.isSavedAlbum;
         this.isInListeningList = data.isInListeningList;
