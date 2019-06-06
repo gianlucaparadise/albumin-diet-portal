@@ -42,7 +42,7 @@ export class AlbumCardComponent implements OnInit {
 
   async addToListeningList() {
     try {
-      const response = await this.albuminService.addToListeningList(this.albumDescriptor.album.id);
+      const response = await this.albuminService.addToListeningList(this.albumDescriptor);
       this.albumDescriptor.isInListeningList = true;
 
     } catch (error) {

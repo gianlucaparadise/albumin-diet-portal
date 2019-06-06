@@ -6,9 +6,11 @@ import {
   ListeningListLoadSuccess,
   ListeningListError,
   ListeningListLoadNext,
-  ListeningListLoadNextSuccess
+  ListeningListLoadNextSuccess,
+  ListeningListRemove,
+  ListeningListAdd
 } from '../actions/listening-list.action';
-import { mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
+import { mergeMap, map, catchError, withLatestFrom, filter } from 'rxjs/operators';
 import { AlbuminService } from 'src/app/services/albumin/albumin.service';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -51,6 +53,35 @@ export class ListeningListEffects {
           catchError((err) => of(new ListeningListError({ err })))
         )
       )
+    );
+
+  @Effect()
+  addAlbum$ = this.actions$
+    .pipe(
+      ofType<ListeningListAdd>(ListeningListActionTypes.Add),
+      withLatestFrom(this.store$.select(selectors.listeningListAlbumDescriptors)),
+      filter(([action, listeningList]) => !!listeningList),
+      mergeMap(([action, listeningList]) => {
+        listeningList.push(action.payload.albumDescriptor);
+        return of(new ListeningListLoadSuccess({
+          albumDescriptors: listeningList
+        }));
+      })
+    );
+
+  @Effect()
+  removeAlbum$ = this.actions$
+    .pipe(
+      ofType<ListeningListRemove>(ListeningListActionTypes.Remove),
+      withLatestFrom(this.store$.select(selectors.listeningListAlbumDescriptors)),
+      filter(([action, listeningList]) => !!listeningList),
+      mergeMap(([action, listeningList]) => {
+        const index = listeningList.findIndex(a => a.album.id === action.payload.albumId);
+        const removed = listeningList.splice(index, 1);
+        return of(new ListeningListLoadSuccess({
+          albumDescriptors: listeningList
+        }));
+      })
     );
 
   constructor(

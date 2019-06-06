@@ -169,7 +169,7 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
 
   async addToListeningList() {
     try {
-      const response = await this.albuminService.addToListeningList(this.albumId);
+      const response = await this.albuminService.addToListeningList(this.albumDescriptor);
       this.isInListeningList = true;
 
     } catch (error) {

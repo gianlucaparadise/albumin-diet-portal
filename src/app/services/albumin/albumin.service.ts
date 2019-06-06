@@ -7,11 +7,12 @@ import { UrlFactoryService } from '../url-factory/url-factory.service';
 import { AuthService } from '../auth/auth.service';
 import {
   GetProfileResponse, GetMyTagsResponse, GetMyAlbumsResponse,
-  GetAlbumResponse, UserAlbumsResponse, ITag
+  GetAlbumResponse, UserAlbumsResponse, TaggedAlbum
 } from 'albumin-diet-types';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { TagsLoad } from 'src/app/store/actions/tag.actions';
+import { ListeningListRemove, ListeningListAdd } from 'src/app/store/actions/listening-list.action';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -133,13 +134,13 @@ export class AlbuminService {
     return this.http.get<UserAlbumsResponse>(url, httpOptions);
   }
 
-  async addToListeningList(albumSpotifyId: string) {
+  async addToListeningList(albumDescriptor: TaggedAlbum) {
     const url = this.urlFactory.getUrl(`listening-list`);
 
-    const requestBody = { album: { spotifyId: albumSpotifyId } };
+    const requestBody = { album: { spotifyId: albumDescriptor.album.id } };
 
     const result = await this.http.post(url, requestBody, httpOptions).toPromise();
-    // this.refreshTags();
+    this.store.dispatch(new ListeningListAdd({ albumDescriptor }));
     return result;
   }
 
@@ -150,7 +151,7 @@ export class AlbuminService {
     httpOptions['body'] = requestBody;
 
     const result = await this.http.delete(url, httpOptions).toPromise();
-    // this.refreshTags();
+    this.store.dispatch(new ListeningListRemove({ albumId: albumSpotifyId }));
     return result;
   }
 

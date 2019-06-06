@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { UserAlbum } from 'albumin-diet-types';
+import { UserAlbum, TaggedAlbum } from 'albumin-diet-types';
 
 export enum ListeningListActionTypes {
   Error = '[ListeningList API] ListeningList API Error',
@@ -9,6 +9,9 @@ export enum ListeningListActionTypes {
 
   LoadNext = '[ListeningList Page] Load ListeningList Next Page',
   LoadNextSuccess = '[ListeningList API] ListeningList Next Page Loaded Success',
+
+  Add = '[ListeningList API] Add to ListeningList',
+  Remove = '[ListeningList API] Remove from ListeningList',
 }
 
 export class ListeningListLoad implements Action {
@@ -35,6 +38,22 @@ export class ListeningListLoadNextSuccess implements Action {
   }) { }
 }
 
+export class ListeningListAdd implements Action {
+  readonly type = ListeningListActionTypes.Add;
+
+  constructor(readonly payload: {
+    albumDescriptor: TaggedAlbum
+  }) { }
+}
+
+export class ListeningListRemove implements Action {
+  readonly type = ListeningListActionTypes.Remove;
+
+  constructor(readonly payload: {
+    albumId: string
+  }) { }
+}
+
 export class ListeningListError implements Action {
   readonly type = ListeningListActionTypes.Error;
 
@@ -44,4 +63,5 @@ export class ListeningListError implements Action {
 export type ListeningListActions =
   ListeningListError |
   ListeningListLoad | ListeningListLoadSuccess |
-  ListeningListLoadNext | ListeningListLoadNextSuccess;
+  ListeningListLoadNext | ListeningListLoadNextSuccess |
+  ListeningListAdd | ListeningListRemove;
