@@ -6,9 +6,11 @@ import {
   MyAlbumsLoadSuccess,
   MyAlbumsError,
   MyAlbumsLoadNext,
-  MyAlbumsLoadNextSuccess
+  MyAlbumsLoadNextSuccess,
+  MyAlbumsRemove,
+  MyAlbumsAdd
 } from '../actions/my-albums.action';
-import { mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
+import { mergeMap, map, catchError, withLatestFrom, filter } from 'rxjs/operators';
 import { AlbuminService } from 'src/app/services/albumin/albumin.service';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -60,6 +62,39 @@ export class MyAlbumsEffects {
           catchError((err) => of(new MyAlbumsError({ err })))
         )
       )
+    );
+
+  // @Effect()
+  // addAlbum$ = this.actions$
+  //   .pipe(
+  //     ofType<MyAlbumsAdd>(MyAlbumsActionTypes.Add),
+  //     withLatestFrom(this.store$.select(selectors.myAlbumDescriptors)),
+  //     filter(([action, myAlbums]) => !!myAlbums),
+  //     mergeMap(([action, myAlbums]) => {
+  //       // TODO: I need to chek is matches the filter first
+  //       myAlbums.push(action.payload.albumDescriptor);
+  //       return of(new MyAlbumsLoadSuccess({
+  //         albumDescriptors: myAlbums
+  //       }));
+  //     })
+  //   );
+
+  @Effect()
+  removeAlbum$ = this.actions$
+    .pipe(
+      ofType<MyAlbumsRemove>(MyAlbumsActionTypes.Remove),
+      withLatestFrom(this.store$.select(selectors.myAlbumsFeature)),
+      filter(([action, myAlbumsFeature]) => !!myAlbumsFeature.albumDescriptors),
+      mergeMap(([action, myAlbumsFeature]) => {
+        const myAlbums = myAlbumsFeature.albumDescriptors;
+        const index = myAlbums.findIndex(a => a.album.id === action.payload.albumId);
+        const removed = myAlbums.splice(index, 1);
+        return of(new MyAlbumsLoadSuccess({
+          showUntagged: myAlbumsFeature.showUntagged,
+          tags: myAlbumsFeature.tags,
+          albumDescriptors: myAlbums
+        }));
+      })
     );
 
   constructor(

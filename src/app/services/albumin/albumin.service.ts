@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { TagsLoad } from 'src/app/store/actions/tag.actions';
 import { ListeningListRemove, ListeningListAdd } from 'src/app/store/actions/listening-list.action';
+import { MyAlbumsRemove } from 'src/app/store/actions/my-albums.action';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -96,6 +97,7 @@ export class AlbuminService {
     httpOptions['body'] = requestBody;
 
     const result = await this.http.delete(url, httpOptions).toPromise();
+    this.store.dispatch(new MyAlbumsRemove({ albumId: spotifyAlbumId }));
     return result;
   }
 
