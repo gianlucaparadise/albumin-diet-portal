@@ -11,7 +11,7 @@ import { selectors } from 'src/app/store/selectors';
 import { AlbumDetailLoad } from 'src/app/store/actions/album-detail.action';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { AlbumObjectFull } from 'spotify-web-api-node-typings';
+import { AlbumObjectFull, TrackObjectSimplified } from 'spotify-web-api-node-typings';
 
 @Component({
   selector: 'app-album-detail',
@@ -29,6 +29,7 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
   albumDescriptor: TaggedAlbum;
   album: AlbumObjectFull;
   tags: ITag[] = [];
+  tracks: TrackObjectSimplified[] = [];
   isSavedAlbum: boolean;
   isInListeningList: boolean;
 
@@ -91,6 +92,7 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
         this.album = data.album;
 
         this.tags = data.tags;
+        this.tracks = data.album.tracks.items;
         this.isSavedAlbum = data.isSavedAlbum;
         this.isInListeningList = data.isInListeningList;
 

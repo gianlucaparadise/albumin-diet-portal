@@ -28,6 +28,7 @@ import { ListeningListComponent } from './components/listening-list/listening-li
 import { TokenInterceptor } from './http-interceptors/token.interceptor';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TracksDurationPipe } from './pipes/tracksDuration/tracksDuration.pipe';
+import { TimespanPipe } from './pipes/timespan/timespan.pipe';
 import { DurationPipe } from './pipes/duration/duration.pipe';
 import { ToggleIconButtonComponent } from './components/toggle-icon-button/toggle-icon-button.component';
 import { StoreModule } from '@ngrx/store';
@@ -49,6 +50,7 @@ import { effects } from './store/effetcs';
     ListeningListComponent,
     SidebarComponent,
     TracksDurationPipe,
+    TimespanPipe,
     DurationPipe,
     ToggleIconButtonComponent,
   ],

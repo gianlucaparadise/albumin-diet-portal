@@ -4,7 +4,7 @@
     <label class="mat-h1">{{album.name}}</label>
     <label class="mat-body">{{album.artists[0].name}}</label>
     <label class="mat-body">{{album.release_date | date:"yyyy"}}</label>
-    <label class="mat-body">{{album.total_tracks}} tracks - {{album.tracks | tracksDuration | duration}}</label>
+    <label class="mat-body">{{album.total_tracks}} tracks - {{album.tracks | tracksDuration | duration:"rough"}}</label>
     <div class="row icons">
       <app-toggle-icon-button [type]="'eggs'" [selected]="isInListeningList" [disabled]="!canToggleListeningList"
         (click)="toggleListeningList()">
@@ -28,17 +28,27 @@
       </button>
     </div>
   </div>
-  <div *ngIf="isSavedAlbum" class="album-tags-container">
-    <h1>My Tags</h1>
-    <mat-form-field>
-      <mat-chip-list #tagList>
-        <mat-chip *ngFor="let tag of tags" [removable]="true" (removed)="remove(tag)">
-          {{tag.name}}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event)">
-      </mat-chip-list>
-    </mat-form-field>
+  <div class="album-right-container">
+    <div *ngIf="isSavedAlbum" class="album-tags-container">
+      <h1>My Tags</h1>
+      <mat-form-field>
+        <mat-chip-list #tagList>
+          <mat-chip *ngFor="let tag of tags" [removable]="true" (removed)="remove(tag)">
+            {{tag.name}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+    <div *ngIf="tracks" class="album-tracks-container">
+      <h1>Tracks</h1>
+      <div *ngFor="let track of tracks" class="row">
+        <label class="mat-body track-number">{{track.track_number}}</label>
+        <label class="mat-body track-name">{{track.name}}</label>
+        <label class="mat-body track-duration">{{track.duration_ms | timespan | duration:"exact"}}</label>
+      </div>
+    </div>
   </div>
 </div>

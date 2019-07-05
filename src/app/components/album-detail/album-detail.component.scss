@@ -33,12 +33,17 @@
   margin: 0px 5px;
 }
 
-.album-listening-list, .album-tags-container {
+.album-right-container {
   flex-grow: 1;
   display: flex;
   flex-flow: column nowrap;
   padding: 10px;
   min-width: 250px;
+}
+
+.album-tags-container {
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .album-tags-cloud {
@@ -50,6 +55,29 @@
   width: 70%;
 }
 
-.album-listening-list > button {
-  align-self: center;
+.album-tracks-container {
+  display: flex;
+  flex-flow: column nowrap;
+
+  .row {
+    display: flex;
+    flex-flow: row nowrap;
+
+    label {
+      padding: 5px;
+    }
+    
+    .track-number {
+      width: 20px;
+      text-align: right;
+    }
+
+    .track-name {
+      flex-grow: 1;
+    }
+    
+    .track-duration {
+      align-self: flex-end;
+    }
+  }
 }
