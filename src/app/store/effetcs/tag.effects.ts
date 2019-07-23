@@ -8,7 +8,7 @@ import {
   TagsError,
   TagsLoad, TagsLoadSuccess,
 } from '../actions/tag.actions';
-import { ITag } from 'albumin-diet-types';
+import { ITag, TagDescriptor } from 'albumin-diet-types';
 const UNTAGGED_NAME = 'Untagged';
 
 @Injectable()
@@ -34,10 +34,11 @@ export class TagEffects {
   ) { }
 }
 
-function appendUntaggedTag(tags: ITag[]) {
+function appendUntaggedTag(tags: TagDescriptor[]) {
   if (tags && tags.length > 0) {
     const untaggedTag: ITag = { name: UNTAGGED_NAME, uniqueId: 'untagged' };
-    tags.unshift(untaggedTag);
+    const untaggedTagDescriptor: TagDescriptor = { tag: untaggedTag, count: 0 };
+    tags.unshift(untaggedTagDescriptor);
   }
   return tags;
 }

@@ -2,14 +2,12 @@ import { Component, OnInit, ViewChild, /*ChangeDetectionStrategy*/ } from '@angu
 import { Router } from '@angular/router';
 
 import { MatChip, MatChipList } from '@angular/material';
-import { ITag } from 'albumin-diet-types';
+import { ITag, TagDescriptor } from 'albumin-diet-types';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { TagsLoad } from 'src/app/store/actions/tag.actions';
 import { selectors } from 'src/app/store/selectors';
-
-const UNTAGGED_NAME = 'Untagged';
 
 @Component({
   selector: 'app-tag-list',
@@ -20,7 +18,8 @@ const UNTAGGED_NAME = 'Untagged';
 export class TagListComponent implements OnInit {
 
   @ViewChild('tagList') tagList: MatChipList;
-  tags$: Observable<ITag[]> = this.store.select(selectors.tags);
+  tags$: Observable<TagDescriptor[]> = this.store.select(selectors.tags);
+  UNTAGGED_NAME = 'Untagged'; // this is a const
 
   constructor(
     private store: Store<AppState>,
@@ -45,7 +44,7 @@ export class TagListComponent implements OnInit {
     if (selectedChip) {
       const name = (<string>selectedChip.value).trim();
 
-      if (name === UNTAGGED_NAME) {
+      if (name === this.UNTAGGED_NAME) {
         showUntagged = true;
       } else {
         selectedTagNames.push(name);

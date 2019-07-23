@@ -1,8 +1,8 @@
-import { ITag } from 'albumin-diet-types';
+import { TagDescriptor } from 'albumin-diet-types';
 import { TagActions, TagActionTypes } from '../actions/tag.actions';
 
 export interface TagState {
-  tags?: ITag[];
+  tags?: TagDescriptor[];
   errorMessage?: string;
 }
 

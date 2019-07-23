@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ITag } from 'albumin-diet-types';
+import { TagDescriptor } from 'albumin-diet-types';
 
 export enum TagActionTypes {
   Error = '[Tags API] Tags API Error',
@@ -15,7 +15,7 @@ export class TagsLoad implements Action {
 export class TagsLoadSuccess implements Action {
   readonly type = TagActionTypes.LoadSuccess;
 
-  constructor(readonly payload: { tags: ITag[] }) { }
+  constructor(readonly payload: { tags: TagDescriptor[] }) { }
 }
 
 export class TagsError implements Action {
