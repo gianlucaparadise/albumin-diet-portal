@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
   name: 'stage',
-  backendEnvironment: 'STAGE'
+  backendEnvironment: 'STAGE',
+  useStub: false
 };

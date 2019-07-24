@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { UrlFactoryService } from '../url-factory/url-factory.service';
 import { AuthService } from '../auth/auth.service';
 import {
   GetProfileResponse, GetMyTagsResponse, GetMyAlbumsResponse,
-  GetAlbumResponse, UserAlbumsResponse, TaggedAlbum
+  GetAlbumResponse, UserAlbumsResponse, TaggedAlbum, EmptyResponse
 } from 'albumin-diet-types';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { TagsLoad } from 'src/app/store/actions/tag.actions';
 import { ListeningListRemove, ListeningListAdd } from 'src/app/store/actions/listening-list.action';
 import { MyAlbumsRemove } from 'src/app/store/actions/my-albums.action';
+import { environment } from 'src/environments/environment';
+
+console.log(`USE_STUB: ${environment.useStub}`);
+const isInStub = environment.useStub === true; // TODO: use a real mocking system
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -32,6 +36,11 @@ export class AlbuminService {
   ) { }
 
   async getProfile(): Promise<GetProfileResponse> {
+    if (isInStub) {
+      const response = this.http.get<GetProfileResponse>('../../../assets/mocks/getProfile.json').toPromise();
+      return response;
+    }
+
     try {
       const url = this.urlFactory.getUrl('profile');
       const response = <GetProfileResponse>await this.http.get(url, httpOptions).toPromise();
@@ -47,12 +56,22 @@ export class AlbuminService {
     this.store.dispatch(new TagsLoad());
   }
 
-  public getTags() {
+  public getTags(): Observable<GetMyTagsResponse> {
+      if (isInStub) {
+        const response = this.http.get<GetMyTagsResponse>('../../../assets/mocks/getTags.json');
+        return response;
+      }
+
       const url = this.urlFactory.getUrl(`tag`);
       return this.http.get<GetMyTagsResponse>(url, httpOptions);
   }
 
   getAlbums(tags: string[] = null, showUntagged: boolean, offset = 0, limit = 20): Observable<GetMyAlbumsResponse> {
+    if (isInStub) {
+      const response = this.http.get<GetMyAlbumsResponse>('../../../assets/mocks/getAlbums.json');
+      return response;
+    }
+
     const params = new URLSearchParams();
     if (tags) {
       params.set('tags', JSON.stringify(tags));
@@ -76,12 +95,22 @@ export class AlbuminService {
   }
 
   getAlbum(spotifyAlbumId: string): Observable<GetAlbumResponse> {
+    if (isInStub) {
+      const response = this.http.get<GetAlbumResponse>('../../../assets/mocks/getAlbum.json');
+      return response;
+    }
+
     const url = this.urlFactory.getUrl('album', spotifyAlbumId);
 
     return this.http.get<GetAlbumResponse>(url, httpOptions);
   }
 
   async saveAlbum(spotifyAlbumId: string) {
+    if (isInStub) {
+      const response = this.http.get<GetAlbumResponse>('../../../assets/mocks/getAlbum.json').toPromise();
+      return response;
+    }
+
     const url = this.urlFactory.getUrl(`album`);
 
     const requestBody = { album: { spotifyId: spotifyAlbumId } };
@@ -91,6 +120,11 @@ export class AlbuminService {
   }
 
   async unsaveAlbum(spotifyAlbumId: string) {
+    if (isInStub) {
+      const response = this.http.get<EmptyResponse>('../../../assets/mocks/empty.json').toPromise();
+      return response;
+    }
+
     const url = this.urlFactory.getUrl(`album`);
 
     const requestBody = { album: { spotifyId: spotifyAlbumId } };
@@ -102,6 +136,11 @@ export class AlbuminService {
   }
 
   async addTagToAlbum(tag: string, albumSpotifyId: string) {
+    if (isInStub) {
+      const response = this.http.get<EmptyResponse>('../../../assets/mocks/empty.json').toPromise();
+      return response;
+    }
+
     const url = this.urlFactory.getUrl(`tag`);
 
     const requestBody = { tag: { name: tag }, album: { spotifyId: albumSpotifyId } };
@@ -112,6 +151,11 @@ export class AlbuminService {
   }
 
   async deleteTagFromAlbum(tag: any, albumSpotifyId: string) {
+    if (isInStub) {
+      const response = this.http.get<EmptyResponse>('../../../assets/mocks/empty.json').toPromise();
+      return response;
+    }
+
     const url = this.urlFactory.getUrl(`tag`);
 
     const requestBody = { tag: { name: tag }, album: { spotifyId: albumSpotifyId } };
@@ -123,6 +167,11 @@ export class AlbuminService {
   }
 
   getListeningList(offset = 0, limit = 20): Observable<UserAlbumsResponse> {
+    if (isInStub) {
+      const response = this.http.get<UserAlbumsResponse>('../../../assets/mocks/getListeningList.json');
+      return response;
+    }
+
     const params = new URLSearchParams();
     if (offset) {
       params.set('offset', offset.toString());
@@ -137,6 +186,11 @@ export class AlbuminService {
   }
 
   async addToListeningList(albumDescriptor: TaggedAlbum) {
+    if (isInStub) {
+      const response = this.http.get<EmptyResponse>('../../../assets/mocks/empty.json').toPromise();
+      return response;
+    }
+
     const url = this.urlFactory.getUrl(`listening-list`);
 
     const requestBody = { album: { spotifyId: albumDescriptor.album.id } };
@@ -147,6 +201,11 @@ export class AlbuminService {
   }
 
   async deleteFromListeningList(albumSpotifyId: string) {
+    if (isInStub) {
+      const response = this.http.get<EmptyResponse>('../../../assets/mocks/empty.json').toPromise();
+      return response;
+    }
+
     const url = this.urlFactory.getUrl(`listening-list`);
 
     const requestBody = { album: { spotifyId: albumSpotifyId } };
@@ -158,6 +217,11 @@ export class AlbuminService {
   }
 
   searchAlbums(keywords: string, offset = 0, limit = 20): Observable<UserAlbumsResponse> {
+    if (isInStub) {
+      const response = this.http.get<UserAlbumsResponse>('../../../assets/mocks/search.json');
+      return response;
+    }
+
     const params = new URLSearchParams();
     if (keywords) {
       params.set('q', keywords);

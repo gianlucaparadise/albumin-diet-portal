@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
   name: 'local',
-  backendEnvironment: 'LOCAL'
+  backendEnvironment: 'LOCAL',
+  useStub: false
 };
