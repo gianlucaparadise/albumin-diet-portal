@@ -137,6 +137,7 @@ export class AlbuminService {
 
   async addTagToAlbum(tag: string, albumSpotifyId: string) {
     if (isInStub) {
+      await delay(2000);
       const response = this.http.get<EmptyResponse>('../../../assets/mocks/empty.json').toPromise();
       return response;
     }
@@ -247,4 +248,8 @@ export class AlbuminService {
 
   //   return this.http.get<SearchArtistResponse>(url, httpOptions).toPromise();
   // }
+}
+
+function delay(ms: number) {
+  return new Promise( resolve => setTimeout(resolve, ms) );
 }

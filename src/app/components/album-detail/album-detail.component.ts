@@ -108,6 +108,11 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
     const input = event.input;
     const value = event.value;
 
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+
     if ((value || '').trim()) {
       // FIXME: addTag() should return the added tag to avoid the empty uniqueId
       const tag: ITag = { name: value.trim(), uniqueId: '' };
@@ -117,12 +122,8 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
       if (!hasAdded) {
         const index = this.tags.indexOf(tag);
         this.tags.splice(index, 1);
+        input.value = value;
       }
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
     }
   }
 
