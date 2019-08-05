@@ -4,7 +4,7 @@
   flex-flow: row wrap;
 }
 
-.album-info-container {
+.album-detail-container .album-info-container {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -23,17 +23,17 @@
   }
 }
 
-.album-info-container > .row {
+.album-detail-container .album-info-container > .row {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
 }
 
-.row.icons > button {
+.album-detail-container .row.icons > button {
   margin: 0px 5px;
 }
 
-.album-right-container {
+.album-detail-container .album-right-container {
   flex-grow: 1;
   display: flex;
   flex-flow: column nowrap;
@@ -41,21 +41,21 @@
   min-width: 250px;
 }
 
-.album-tags-container {
+.album-detail-container .album-tags-container {
   display: flex;
   flex-flow: column nowrap;
 }
 
-.album-tags-cloud {
+.album-detail-container .album-tags-cloud {
   display: flex;
   flex-flow: row wrap;
 }
 
-.album-image {
+.album-detail-container .album-image {
   width: 70%;
 }
 
-.album-tracks-container {
+.album-detail-container .album-tracks-container {
   display: flex;
   flex-flow: column nowrap;
 

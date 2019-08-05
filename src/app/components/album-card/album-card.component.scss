@@ -3,15 +3,15 @@
   margin: 10px;
 }
 
-.album-image-wrapper {
+.album-card .album-image-wrapper {
   position: relative;
 }
 
-.album-image {
+.album-card .album-image {
   height: 100%;
 }
 
-.play-overlay {
+.album-card .play-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -30,7 +30,7 @@
   }
 }
 
-.tags-section div.mat-chip-list-wrapper {
+.album-card .tags-section div.mat-chip-list-wrapper {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -40,7 +40,7 @@
   }
 }
 
-div.mat-chip-list-wrapper::-webkit-scrollbar {
+.album-card div.mat-chip-list-wrapper::-webkit-scrollbar {
   display: none;
 }
 

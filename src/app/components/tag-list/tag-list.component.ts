@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, /*ChangeDetectionStrategy*/ } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, /*ChangeDetectionStrategy*/ } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatChip, MatChipList } from '@angular/material';
@@ -13,7 +13,8 @@ import { selectors } from 'src/app/store/selectors';
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class TagListComponent implements OnInit {
 

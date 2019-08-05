@@ -13,10 +13,11 @@
   font-size: 80%;
 }
 
-// .mat-chip-list-stacked .mat-chip-list-wrapper {
-//   align-items: stretch !important;
-// }
+/* This gives tags the right width */
+.mat-chip-list-stacked .mat-chip-list-wrapper {
+  align-items: stretch !important;
+}
 
-// .mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip {
-//   width: auto !important;
-// }
+.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip {
+  width: auto !important;
+}
