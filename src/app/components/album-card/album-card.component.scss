@@ -30,6 +30,21 @@
   }
 }
 
+.mat-card-header-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+  margin: 0 5px !important;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.album-card .album-name {
+  display: inline;
+}
+
 .album-card .tags-section div.mat-chip-list-wrapper {
   display: flex;
   flex-wrap: nowrap;

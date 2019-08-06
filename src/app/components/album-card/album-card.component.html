@@ -8,9 +8,9 @@
     </div>
   </div>
   <mat-card-header>
-    <mat-card-subtitle>{{albumDescriptor.album.artists[0].name}}</mat-card-subtitle>
-    <mat-card-subtitle>{{albumDescriptor.album.release_date | date:"yyyy"}}</mat-card-subtitle>
-    <mat-card-title>{{albumDescriptor.album.name}}</mat-card-title>
+    <mat-card-subtitle class="album-subtitle">{{albumDescriptor.album.artists[0].name}}</mat-card-subtitle>
+    <mat-card-subtitle class="album-subtitle">{{albumDescriptor.album.release_date | date:"yyyy"}}</mat-card-subtitle>
+    <mat-card-title class="album-title album-name">{{albumDescriptor.album.name}}</mat-card-title>
   </mat-card-header>
   <div *ngIf="albumDescriptor.tags" class="tags-section">
     <mat-chip-list [selectable]="false">
