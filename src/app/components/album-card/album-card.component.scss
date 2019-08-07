@@ -11,13 +11,21 @@
   height: 100%;
 }
 
-.album-card .play-overlay {
+.album-card .album-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   margin: -16px -16px 19px -16px; /* I need this because MatCardImage has a -16px margin*/
+}
+
+.album-card .album-overlay.gradient-overlay {
+  background: rgba(0,0,0,.6);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 95%);
+}
+
+.album-card .album-overlay.play-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,13 +53,29 @@
   display: inline;
 }
 
-.album-card .tags-section div.mat-chip-list-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+.album-card .tags-section {
+  position: absolute;
+  bottom: 10%;
+  left: -16px;
+  right: -16px;
+  
+  div.mat-chip-list-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin: 0;
 
-  .mat-chip {
-    flex: 0 0 auto;
+    .mat-chip {
+      flex: 0 0 auto;
+    }
+
+    .mat-chip:first-child {
+      margin-left: 10px;
+    }
+
+    .mat-chip:last-child {
+      margin-right: 10px;
+    }
   }
 }
 

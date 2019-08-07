@@ -2,9 +2,15 @@
   <div class="album-image-wrapper">
     <img mat-card-image src="{{albumDescriptor.album.images[1].url}}" alt="{{albumDescriptor.album.name}}"
       class="album-image">
-    <div class="play-overlay">
+    <div *ngIf="hasTags" class="album-overlay gradient-overlay"></div>
+    <div class="album-overlay play-overlay">
       <mat-icon class="play-icon" (click)="playAlbum(albumDescriptor.album, $event)"
         style="color: white;height: 70px;width: 70px;font-size: 70px; cursor: pointer;">play_circle_outline</mat-icon>
+    </div>
+    <div *ngIf="hasTags" class="tags-section">
+      <mat-chip-list [selectable]="false">
+        <mat-chip *ngFor="let tag of albumDescriptor.tags">{{tag.name}}</mat-chip>
+      </mat-chip-list>
     </div>
   </div>
   <mat-card-header>
@@ -12,11 +18,6 @@
     <mat-card-subtitle class="album-subtitle">{{albumDescriptor.album.release_date | date:"yyyy"}}</mat-card-subtitle>
     <mat-card-title class="album-title album-name">{{albumDescriptor.album.name}}</mat-card-title>
   </mat-card-header>
-  <div *ngIf="albumDescriptor.tags" class="tags-section">
-    <mat-chip-list [selectable]="false">
-      <mat-chip *ngFor="let tag of albumDescriptor.tags">{{tag.name}}</mat-chip>
-    </mat-chip-list>
-  </div>
   <mat-card-actions>
     <app-toggle-icon-button [type]="'eggs'" [selected]="albumDescriptor.isInListeningList"
       [disabled]="!canToggleListeningList" (click)="toggleListeningList($event)">

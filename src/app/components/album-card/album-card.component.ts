@@ -18,6 +18,10 @@ export class AlbumCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  get hasTags() {
+    return this.albumDescriptor.tags && this.albumDescriptor.tags.length > 0;
+  }
+
   goToDetail(album) {
     // todo: use event emitter
     const albumId = album.id;
