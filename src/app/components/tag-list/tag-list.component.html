@@ -1,6 +1,6 @@
 <div class="tag-list-container">
   <label class="mat-subheading-2">Tags</label>
-  <mat-chip-list #tagList class="mat-chip-list-stacked" aria-orientation="vertical" (change)="onChange()">
+  <mat-chip-list #tagList class="mat-chip-list-stacked" aria-orientation="vertical">
     <mat-chip #chip="matChip" *ngFor="let tagDescriptor of tags$ | async" (click)="onTagClick(tagDescriptor, chip)"
       [ngClass]="{'untagged': tagDescriptor.tag.name == UNTAGGED_NAME}">
       <span>{{tagDescriptor.tag.name}}</span>

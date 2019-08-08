@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation, /*ChangeDetectionStrat
 import { Router } from '@angular/router';
 
 import { MatChip, MatChipList } from '@angular/material';
-import { ITag, TagDescriptor } from 'albumin-diet-types';
+import { TagDescriptor } from 'albumin-diet-types';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
@@ -31,19 +31,19 @@ export class TagListComponent implements OnInit {
     this.store.dispatch(new TagsLoad());
   }
 
-  onTagClick(tag: ITag, chip: MatChip): void {
+  onTagClick(tagDescriptor: TagDescriptor, chip: MatChip): void {
     // tag.selected = !tag.selected;
     chip.toggleSelected();
-    this.onChange();
+    this.onChange(tagDescriptor);
   }
 
-  onChange() {
+  onChange(tagDescriptor: TagDescriptor) {
     const selectedChip = <MatChip>this.tagList.selected;
 
     let showUntagged = false;
     const selectedTagNames: string[] = [];
     if (selectedChip) {
-      const name = (<string>selectedChip.value).trim();
+      const name = tagDescriptor.tag.uniqueId;
 
       if (name === this.UNTAGGED_NAME) {
         showUntagged = true;
