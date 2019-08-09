@@ -542,6 +542,11 @@ THE SOFTWARE.
 @ngrx/store
 MIT
 
+@angular/forms
+MIT
+
+@angular/material/chips
+
 @angular/material/card
 
 ngx-infinite-scroll
@@ -570,11 +575,6 @@ SOFTWARE.
 
 
 @angular/material/form-field
-
-@angular/forms
-MIT
-
-@angular/material/chips
 
 @angular/material/sidenav
 
