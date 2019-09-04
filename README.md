@@ -1,27 +1,58 @@
-# AlbuminDietPortal
+# Albumin Diet Portal
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.2.
+## Overview
 
-## Development server
+Albumin Diet is an application that aims to make a music streaming platform (Spotify) less playlist-centric and more album oriented.
+With Albumin Diet you can:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Tag your saved albums with your custom-made tags
+* Browse your saved albums by tag
+* Save an album in your listening-list and listen to them later
 
-## Code scaffolding
+## Try it
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Albumin Diet for Web can be found at the following link: www.albumindiet.tk
 
-## Build
+## Ecosystem
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Albumin Diet has born to test the capabilities of several technologies. The whole ecosystem is made of the following applications:
 
-## Running unit tests
+* [albumin-diet-engine](https://github.com/gianlucaparadise/albumin-diet-engine)
+  * Backend
+* [albumin-diet-portal](https://github.com/gianlucaparadise/albumin-diet-portal) (this repository)
+  * Frontend Web
+* [albumin-diet-mobapp](https://github.com/gianlucaparadise/albumin-diet-mobapp)
+  * Frontend Mobile App
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Tech notes
 
-## Running end-to-end tests
+I used this project to test the capabilities of the following technologies:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+* Angular
+* Typescript
+* Redux pattern (using NgRx)
+* GitHub Pages
 
-## Further help
+## Dev notes
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+To run this application locally, you need to perform the following steps:
+
+1. Clone the repository
+
+```sh
+git clone https://github.com/gianlucaparadise/albumin-diet-portal && cd albumin-diet-portal
+```
+
+2. Install the dependencies
+
+```sh
+yarn install
+```
+
+3. Run the app
+
+```sh
+yarn start
+```
+
+**N.B.** You need to run the *albumin-diet-engine* locally following [this](https://github.com/gianlucaparadise/albumin-diet-engine/blob/master/README.md) guide.
