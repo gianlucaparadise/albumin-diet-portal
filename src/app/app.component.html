@@ -1,12 +1,14 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div class="mat-app-background">
+<div class="mat-app-background" [class.is-mobile]="mobileQuery.matches">
   <mat-sidenav-container class="root-container">
-    <mat-sidenav mode="side" opened>
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="mobileQuery.matches ? 'false' : 'true'">
       <app-sidebar></app-sidebar>
     </mat-sidenav>
     <mat-sidenav-content #contentArea>
-      <app-toolbar></app-toolbar>
-      <router-outlet></router-outlet>
+      <app-toolbar (hamburgerClick)="snav.toggle()" [isMobile]="mobileQuery.matches"></app-toolbar>
+      <div id="outlet-container">
+        <router-outlet></router-outlet>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

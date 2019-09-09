@@ -1,6 +1,9 @@
 <mat-toolbar>
-  <button mat-icon-button (click)="goBack()">
+  <button mat-icon-button [class.is-hidden]="isMobile" (click)="goBack()">
     <mat-icon aria-label="Back">arrow_back_ios</mat-icon>
+  </button>
+  <button mat-icon-button [class.is-hidden]="!isMobile" (click)="onHamburgerClicked()">
+    <mat-icon>menu</mat-icon>
   </button>
   <label>{{title}}</label>
 </mat-toolbar>
