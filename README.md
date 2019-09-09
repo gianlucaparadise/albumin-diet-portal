@@ -11,7 +11,9 @@ With Albumin Diet you can:
 
 ## Try it
 
-Albumin Diet for Web can be found at the following link: www.albumindiet.tk
+Albumin Diet for Web can be found at the following link: www.albumindiet.tk.
+
+**N.B.** This is intended to be a POC and is using a free DBaaS with limited storage available. All your data may be lost without warning.
 
 ## Ecosystem
 
