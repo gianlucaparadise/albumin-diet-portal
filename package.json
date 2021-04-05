@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "clean": "rm -rf dist",
     "deploy": "rm -rf docs && ng build --configuration=stage --output-path docs && cp docs/index.html docs/404.html && npm run cname",
-    "cname": "touch docs/CNAME && printf \"www.albumindiet.tk\" > docs/CNAME",
+    "cname": "touch docs/CNAME && printf \"www.albumindiet.ml\" > docs/CNAME",
     "heroku-postbuild": "ng build -c stage --aot --output-path dist",
     "update-types": "yarn add --dev albumin-diet-types@latest"
   },
@@ -38,7 +38,7 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.11.0",
+    "@angular-devkit/build-angular": "~0.13.10",
     "@angular/cli": "~7.1.2",
     "@angular/compiler-cli": "~7.1.0",
     "@angular/language-service": "~7.1.0",
