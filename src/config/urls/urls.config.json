@@ -6,8 +6,8 @@
       "albumin-engine": "http://localhost:3000"
     },
     "STAGE": {
-      "default": "https://albumin-diet-engine-gianlucaparadise.vercel.app/",
-      "albumin-engine": "https://albumin-diet-engine-gianlucaparadise.vercel.app/"
+      "default": "https://albumin-diet-engine-gianlucaparadise.vercel.app",
+      "albumin-engine": "https://albumin-diet-engine-gianlucaparadise.vercel.app"
     }
   },
   "urls": {
